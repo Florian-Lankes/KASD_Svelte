@@ -11,7 +11,7 @@ const placemarkSchema = new Schema({
     analytics: String,
     image: String,
     location: {latitude: Number, longitude: Number},
-    createdBy: User
+    createdBy: String
 });
 
 export const Placemark = Mongoose.model("Placemark", placemarkSchema);
