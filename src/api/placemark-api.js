@@ -16,15 +16,15 @@ export const placemarkApi = {
 
     findOne: {
         auth: false,
-        async handler(request) {
+        async handler(request, h) {
             try {
                 const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
                 if (!placemark) {
-                    return Boom.notFound("No Playlist with this id");
+                    return Boom.notFound("No Placemark with this id");
                 }
                 return placemark;
             } catch (err) {
-                return Boom.serverUnavailable("No Playlist with this id");
+                return Boom.serverUnavailable("No Placemark with this id");
             }
         },
     },
@@ -34,11 +34,12 @@ export const placemarkApi = {
         handler: async function (request, h) {
             try {
                 const placemark = request.payload;
-                const newPlacemark = await db.placemarkStore.addPlacemark(placemark);
+                const userId = request.params.id;
+                const newPlacemark = await db.placemarkStore.addPlacemark(userId, placemark);
                 if (newPlacemark) {
                     return h.response(newPlacemark).code(201);
                 }
-                return Boom.badImplementation("error creating playlist");
+                return Boom.badImplementation("error creating Placemark");
             } catch (err) {
                 return Boom.serverUnavailable("Database Error");
             }
@@ -51,12 +52,12 @@ export const placemarkApi = {
             try {
                 const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
                 if (!placemark) {
-                    return Boom.notFound("No Playlist with this id");
+                    return Boom.notFound("No Placemark with this id");
                 }
                 await db.placemarkStore.deletePlacemarkById(placemark._id);
                 return h.response().code(204);
             } catch (err) {
-                return Boom.serverUnavailable("No Playlist with this id");
+                return Boom.serverUnavailable("No Placemark with this id");
             }
         },
     },

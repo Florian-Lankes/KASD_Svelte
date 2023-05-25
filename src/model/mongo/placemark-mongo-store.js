@@ -16,14 +16,15 @@ export const placemarkMongoStore = {
         return null;
     },
 
-    //placemark is a object which contains all details about the POI and the createdBy user id
-    async addPlacemark(placemark) {
+    //  placemark is a object which contains all details about the POI and the createdBy user id
+    async addPlacemark(userID, placemark) {
+        placemark.createdBy =  userID;
         const newPlacemark = new Placemark(placemark);
         const pm = await newPlacemark.save();
         return this.getPlacemarkById(pm._id);
     },
 
-    //returns all Placemarks which the user created
+    //  returns all Placemarks which the user created
     async getPlacemarkByUserid(id) {
         const user = await userMongoStore.getUserById(id);
         const placemark = await Placemark.find({ createdBy: user }).lean();
