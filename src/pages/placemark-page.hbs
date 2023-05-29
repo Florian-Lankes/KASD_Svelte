@@ -1,0 +1,9 @@
+<section class="section">
+    {{> logged-in-menu}}
+    <h1 class="title">Details of {{placemark.name}}</h1>
+    <p>Category:    {{placemark.category}}</p>
+    <p>Description: {{placemark.description}}</p>
+    <p>Image:       {{placemark.image}}</p>
+    <p>Latitude:    {{placemark.location.latitude}} Longitude: {{placemark.location.longitude}}</p>
+    <p>CreatedById: {{placemark.createdById}}</p>
+</section>

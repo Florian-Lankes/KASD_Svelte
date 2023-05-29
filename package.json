@@ -18,16 +18,17 @@
   },
   "homepage": "https://github.com/Florian-Lankes/KASD#readme",
   "devDependencies": {
+    "chai": "^4.3.7",
     "eslint": "^8.40.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
-    "prettier": "^2.8.8",
-    "chai": "^4.3.7",
-    "mocha": "^10.2.0"
+    "mocha": "^10.2.0",
+    "prettier": "^2.8.8"
   },
   "dependencies": {
     "@hapi/boom": "^10.0.1",
+    "@hapi/cookie": "^12.0.1",
     "@hapi/hapi": "^21.3.2",
     "@hapi/vision": "^7.0.1",
     "axios": "^1.4.0",

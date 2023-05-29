@@ -1,0 +1,24 @@
+<form action="/dashboard/addplacemark" method="POST">
+    <label>Type Details of new Placemark</label>
+    <div class="field is horizontal">
+        <div class="field-body">
+            <div class="field">
+                <label class="label">Title</label>
+                <input class="input" type="text" placeholder="Type name" name="name">
+            </div>
+            <div class="field">
+                <label class="label">Description</label>
+                <input class="input" type="text" placeholder="Type description" name="description">
+            </div>
+            <div class="field">
+                <label class="label">Latitude</label>
+                <input class="input" type="number" min="-90" max="90" placeholder="Type latitude" name="latitude">
+            </div>
+            <div class="field">
+                <label class="label">Longitude</label>
+                <input class="input" type="number" min="-180" max="180" placeholder="Type longitude" name="longitude">
+            </div>
+        </div>
+    </div>
+    <button class="button is-link">Add Placemark</button>
+</form>

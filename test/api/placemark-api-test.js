@@ -16,7 +16,8 @@ suite("Placemark API tests", () => {
     teardown(async () => {});
 
     test("create a placemark", async () => {
-        const newPlacemark = await KASDMapsService.createPlacemark(hochschule);
+        const user = await KASDMapsService.createUser(maggie);
+        const newPlacemark = await KASDMapsService.createPlacemark(user._id, hochschule);
         assertSubset(hochschule, newPlacemark);
         assert.isDefined(newPlacemark._id);
     });
