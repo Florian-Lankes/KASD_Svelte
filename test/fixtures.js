@@ -69,3 +69,20 @@ export const hochschule = [
         location:{latitude: 49.00246815044316, longitude: 12.097496555850848},
     }
 ];
+
+export const history = [
+    {
+        title: "Historic sites"
+    }
+];
+export const testGroups = [
+    {
+        title: "Want to visit"
+    },
+    {
+        title: "Already visited"
+    },
+    {
+        title:"Nice Scenery"
+    }
+];

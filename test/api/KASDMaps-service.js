@@ -40,7 +40,32 @@ export const KASDMapsService = {
 
     async deleteAllPlacemarks() {
         const res = await axios.delete(`${this.KASDMapsUrl}/api/placemarks`);
+        return res;
+    },
+
+    async createGroup(id, group) {
+        const res = await axios.post(`${this.KASDMapsUrl}/api/users/${id}/groups`, group);
         return res.data;
+    },
+
+    async getGroup(id) {
+        const res = await axios.get(`${this.KASDMapsUrl}/api/groups/${id}`);
+        return res.data;
+    },
+
+    async getAllGroups() {
+        const res = await axios.get(`${this.KASDMapsUrl}/api/groups`);
+        return res.data;
+    },
+
+    async deleteAllGroups() {
+        const res = await axios.delete(`${this.KASDMapsUrl}/api/groups`);
+        return res;
+    },
+
+    async deleteGroup(id) {
+        const res = await axios.delete(`${this.KASDMapsUrl}/api/groups/${id}`);
+        return res;
     },
 
 }

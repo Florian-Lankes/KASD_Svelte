@@ -16,10 +16,22 @@ export const placemarkMongoStore = {
         return null;
     },
 
+    async getPlacemarksOfIdArray(array) {
+        if(array) {
+            const placemarks = null;
+
+            array.forEach((placemarkId) => {
+                placemarks.push( this.getPlacemarkById(placemarkId));
+            })
+            // console.log(placemarks);
+        }
+        return null;
+    },
+
     //  placemark is a object which contains all details about the POI and the createdBy user id
-    async addPlacemark(userID, placemark) {
+    async addPlacemark(userId, placemark) {
         const newPlacemark = new Placemark(placemark);
-        newPlacemark.createdById = userID;
+        newPlacemark.createdById = userId;
         const pm = await newPlacemark.save();
         return this.getPlacemarkById(pm._id);
     },
@@ -30,6 +42,13 @@ export const placemarkMongoStore = {
         const placemark = await Placemark.find({ createdBy: user }).lean();
         return placemark;
     },
+
+    /*
+    async getPlacemarksByGroupId(id) {
+        const placemarks = await Placemark.find({ groupId: id }).lean();
+        return placemarks;
+    },
+    */
 
     async deletePlacemarkById(id) {
         try {
