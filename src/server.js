@@ -5,6 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import Cookie from "@hapi/cookie";
+import Joi from "joi";
 import { accountsController } from "./controllers/accounts-controller.js";
 import { webRoutes } from "./web-routes.js";
 import { apiRoutes } from "./api-routes.js";
@@ -27,6 +28,7 @@ async function init() {
     });
     await server.register(Vision);
     await server.register(Cookie);
+    server.validator(Joi);
     server.views({
         engines: {
             hbs: Handlebars,
