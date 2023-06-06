@@ -4,12 +4,12 @@ export const KASDMapsService = {
     KASDMapsUrl: serviceUrl,
 
     async createUser(user) {
-        const res = await axios.post(`${this.KASDMapsUrl}/api/users`, user);
+        const res = await axios.post(`${this.KASDMapsUrl}/api/user`, user);
         return res.data;
     },
 
     async getUser(id) {
-        const res = await axios.get(`${this.KASDMapsUrl}/api/users/${id}`);
+        const res = await axios.get(`${this.KASDMapsUrl}/api/user/${id}`);
         return res.data;
     },
 
@@ -24,12 +24,12 @@ export const KASDMapsService = {
     },
 
     async createPlacemark(id, placemark) {
-        const res = await axios.post(`${this.KASDMapsUrl}/api/users/${id}/placemarks`, placemark);
+        const res = await axios.post(`${this.KASDMapsUrl}/api/user/${id}/placemark`, placemark);
         return res.data;
     },
 
     async getPlacemark(id) {
-        const res = await axios.get(`${this.KASDMapsUrl}/api/placemarks/${id}`);
+        const res = await axios.get(`${this.KASDMapsUrl}/api/placemark/${id}`);
         return res.data;
     },
 
@@ -43,13 +43,18 @@ export const KASDMapsService = {
         return res;
     },
 
+    async deletePlacemark(id) {
+        const res = await axios.delete(`${this.KASDMapsUrl}/api/placemark/${id}`);
+        return res;
+    },
+
     async createGroup(id, group) {
-        const res = await axios.post(`${this.KASDMapsUrl}/api/users/${id}/groups`, group);
+        const res = await axios.post(`${this.KASDMapsUrl}/api/user/${id}/group`, group);
         return res.data;
     },
 
     async getGroup(id) {
-        const res = await axios.get(`${this.KASDMapsUrl}/api/groups/${id}`);
+        const res = await axios.get(`${this.KASDMapsUrl}/api/group/${id}`);
         return res.data;
     },
 
@@ -64,7 +69,7 @@ export const KASDMapsService = {
     },
 
     async deleteGroup(id) {
-        const res = await axios.delete(`${this.KASDMapsUrl}/api/groups/${id}`);
+        const res = await axios.delete(`${this.KASDMapsUrl}/api/group/${id}`);
         return res;
     },
 
