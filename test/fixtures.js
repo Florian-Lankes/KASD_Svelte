@@ -6,7 +6,17 @@ export const maggie = {
     username: "MaggieSimpson",
     email: "maggie@simpson.com",
     password: "secret",
+    isAdmin: true
+};
+
+export const maggieCredentials = {
+    email: "maggie@simpson.com",
+    password: "secret",
     isAdmin: false
+};
+
+export const mozart = {
+    title: "Mozart Favourites"
 };
 
 export const testUsers = [
@@ -60,21 +70,20 @@ export const testBridges = [
     }
 ];
 
-export const hochschule = [
+export const hochschule =
     {
         name: "OTH Regensburg Fakultät Informatik und Mathematik",
         category: "university",
-        description: "",
+        description: "ttt",
         image: "",
         location:{latitude: 49.00246815044316, longitude: 12.097496555850848},
-    }
-];
+    };
 
-export const history = [
+
+export const history =
     {
         title: "Historic sites"
-    }
-];
+    };
 export const testGroups = [
     {
         title: "Want to visit"

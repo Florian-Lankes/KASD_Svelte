@@ -29,10 +29,12 @@ export const accountsController = {
         },
         handler: async function (request, h) {
             const user = request.payload;
+            console.log(user);
             const user2 = { firstname: request.payload.firstName,
                             lastName: request.payload.lastName,
                             email: request.payload.email,
                             password: request.payload.password}
+
             await db.userStore.addUser(user);
             return h.redirect("/");
         },

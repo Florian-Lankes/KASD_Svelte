@@ -29,7 +29,6 @@ export const dashboardController = {
         handler: async function (request, h) {
             const loggedInUser = request.auth.credentials;
             const user = await db.userStore.getUserById(loggedInUser._id);
-            // console.log(user._id);
             const placemark = {
                 name: request.payload.name,
                 category: "",

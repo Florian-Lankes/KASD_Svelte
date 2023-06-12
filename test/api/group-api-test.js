@@ -1,28 +1,36 @@
 import { assert } from "chai";
 import { KASDMapsService } from "./KASDMaps-service.js";
 import { assertSubset } from "../test-utils.js";
-import { maggie, history, testGroups } from "../fixtures.js";
+import { maggie, history, testGroups, maggieCredentials } from "../fixtures.js";
 
 
 suite("Group API tests", () => {
-    let user = null;
 
     setup(async () => {
+        await KASDMapsService.clearAuth();
+        await KASDMapsService.createUser(maggie);
+        await KASDMapsService.authenticate(maggieCredentials);
         await KASDMapsService.deleteAllGroups();
         await KASDMapsService.deleteAllUsers();
-        user = await KASDMapsService.createUser(maggie);
-        // mozart.userid = user._id;
+        const user = await KASDMapsService.createUser(maggie);
+        await KASDMapsService.authenticate(maggieCredentials);
+        history.userid = user._id;
+
     });
 
     teardown(async () => {});
 
     test("create group", async () => {
+        const user = await KASDMapsService.createUser(maggie);
+        await KASDMapsService.authenticate(maggieCredentials);
         const returnedGroups = await KASDMapsService.createGroup(user._id, history);
         assert.isNotNull(returnedGroups);
         assertSubset(history, returnedGroups);
     });
 
     test("delete a group", async () => {
+        const user = await KASDMapsService.createUser(maggie);
+        await KASDMapsService.authenticate(maggieCredentials);
         const group = await KASDMapsService.createGroup(user._id, history);
         const response = await KASDMapsService.deleteGroup(group._id);
         assert.equal(response.status, 204);
@@ -35,6 +43,8 @@ suite("Group API tests", () => {
     });
 
     test("create multiple groups", async () => {
+        const user = await KASDMapsService.createUser(maggie);
+        await KASDMapsService.authenticate(maggieCredentials);
         for (let i = 0; i < testGroups.length; i += 1) {
             testGroups[i].userid = user._id;
             // eslint-disable-next-line no-await-in-loop

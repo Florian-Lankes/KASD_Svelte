@@ -23,7 +23,6 @@ export const placemarkMongoStore = {
             array.forEach((placemarkId) => {
                 placemarks.push( this.getPlacemarkById(placemarkId));
             })
-            // console.log(placemarks);
         }
         return null;
     },

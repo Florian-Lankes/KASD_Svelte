@@ -9,8 +9,6 @@ export const groupController = {
             group.arrayOfPlacemarkIds.forEach( (placemarkId) => {
                 placemarks.push(db.placemarkStore.getPlacemarkById(placemarkId));
             })
-            console.log(placemarks);
-
             const viewData = {
                 title: "Group",
                 group: group,
