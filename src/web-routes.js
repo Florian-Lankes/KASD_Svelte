@@ -17,9 +17,14 @@ export const webRoutes = [
     { method: "GET", path: "/dashboard/deleteplacemark/{id}", config: dashboardController.deletePlacemark },
     { method: "POST", path: "/dashboard/addgroup", config: dashboardController.addGroup},
     { method: "GET", path: "/dashboard/deletegroup/{id}", config: dashboardController.deleteGroup },
+    { method: "POST", path: "/dashboard/addPlacemarkToGroup", config: dashboardController.addPlacemarkToGroup },
 
     { method: "GET", path: "/placemark/{id}", config: placemarkController.index },
+    { method: "POST", path: "/placemark/{id}/uploadimage", config: placemarkController.uploadImage },
+
+
     { method: "GET", path: "/group/{id}", config: groupController.index },
+
 
     { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
 

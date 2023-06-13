@@ -29,9 +29,18 @@ const swaggerOptions = {
         title: "KASDMaps API",
         version: "0.8.0",
     },
+    securityDefinitions: {
+        jwt: {
+            type: "apiKey",
+            name: "Authorization",
+            in: "header"
+        }
+    },
+    security: [{ jwt: [] }]
 };
 
 // Not finished: Group view edit, edit placemarks, admin, adding placemarks to groups
+//dasboard constroller adding the placemark to the group does not work
 async function init() {
     const server = Hapi.server({
         port: 3000,
