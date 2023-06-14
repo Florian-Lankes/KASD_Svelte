@@ -1,4 +1,5 @@
 import { Placemark } from "./placemark.js";
+import { groupMongoStore } from "./group-mongo-store.js";
 import { userMongoStore } from "./user-mongo-store.js";
 
 export const placemarkMongoStore = {
@@ -10,7 +11,7 @@ export const placemarkMongoStore = {
 
     async getPlacemarkById(id) {
         if (id) {
-            const placemark = await Placemark.findOne({ _id: id }).lean();
+            const placemark = await Placemark.findOne({ _id: id }).lean(); //lean falsch
             return placemark;
         }
         return null;
@@ -18,11 +19,12 @@ export const placemarkMongoStore = {
 
     async getPlacemarksOfIdArray(array) {
         if(array) {
-            const placemarks = null;
+            const placemarks = [];
 
-            array.forEach((placemarkId) => {
-                placemarks.push( this.getPlacemarkById(placemarkId));
-            })
+            for(let i = 0; i < array.length; i++){
+                placemarks.push(await this.getPlacemarkById(array[i]));
+            };
+            return placemarks;
         }
         return null;
     },
@@ -52,6 +54,7 @@ export const placemarkMongoStore = {
     async deletePlacemarkById(id) {
         try {
             await Placemark.deleteOne({ _id: id });
+            await groupMongoStore.deletePlacemarkWithId(id);
         } catch (error) {
             console.log("bad id");
         }

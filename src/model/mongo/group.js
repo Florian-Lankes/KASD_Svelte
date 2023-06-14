@@ -10,7 +10,7 @@ const groupSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
     },
-    arrayOfPlacemarkIds: [{type: Schema.Types.ObjectId, ref: "Placemark"}]
+    arrayOfPlacemarkIds: [{type: Schema.Types.ObjectId, ref:"Placemark"}]
 });
 
 export const Group = Mongoose.model("Group", groupSchema);

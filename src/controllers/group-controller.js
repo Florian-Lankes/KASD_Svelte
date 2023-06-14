@@ -3,16 +3,19 @@ import { db } from "../model/db.js";
 export const groupController = {
     index: {
         handler: async function (request, h) {
-            const group = await db.groupStore.getGroupById(request.params.id);
-            const placemarks = null; // -----------------------------------------------------------------<<
+            const group = await db.groupStore.getGroupPlusPlacemarkInfoById(request.params.id);
+            /*
+            const placemarks = []; // -----------------------------------------------------------------<<
 
-            group.arrayOfPlacemarkIds.forEach( (placemarkId) => {
-                placemarks.push(db.placemarkStore.getPlacemarkById(placemarkId));
-            })
+            for(let i = 0; i < group.arrayOfPlacemarkIds.length; i++){
+                placemarks.push(await db.placemarkStore.getPlacemarkById(group.arrayOfPlacemarkIds[i]));
+            };
+            */
+            console.log("group2");
+             console.log(group);
             const viewData = {
-                title: "Group",
                 group: group,
-                placemarks: placemarks,
+                placemarks: group.placemarks,
             };
             return h.view("group-page", viewData);
         },
@@ -24,4 +27,5 @@ export const groupController = {
             return h.redirect("/dashboard");
         },
     },
+
 };

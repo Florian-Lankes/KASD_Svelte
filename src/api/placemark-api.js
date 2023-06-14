@@ -1,4 +1,5 @@
 import Boom from "@hapi/boom";
+import Joi from "joi";
 import { db } from "../model/db.js";
 import {IdSpec, PlacemarkArraySpec, PlacemarkSpecReal, PlacemarkSpecPlus} from "../model/joi-schemas.js";
 import { validationError } from "./logger.js";
@@ -54,8 +55,9 @@ export const placemarkApi = {
         handler: async function (request, h) {
             try {
                 const placemark = request.payload;
-                const userId = request.params.id;
-                console.log(placemark);
+
+                // console.log(placemark);
+                const userId = request.auth.credentials._id;
                 const newPlacemark = await db.placemarkStore.addPlacemark(userId, placemark);
                 if (newPlacemark) {
                     return h.response(newPlacemark).code(201);

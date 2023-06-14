@@ -1,5 +1,6 @@
 import { db } from "../model/db.js";
 import { PlacemarkSpec } from "../model/joi-schemas.js";
+import { Group } from "../model/mongo/group.js";
 
 export const dashboardController = {
     index: {
@@ -13,6 +14,18 @@ export const dashboardController = {
                 placemarks: await db.placemarkStore.getAllPlacemarks(),
                 groups: await db.groupStore.getUserGroups(loggedInUser._id),
             };
+            // adding options to placemark for group adding
+            const array = [];
+            for (let i = 0; i < viewData.groups.length; i++) {
+                const element = {title: "",
+                                id: null};
+                element.title = viewData.groups[i].title;
+                element.id = viewData.groups[i]._id;
+                array.push(element);
+            }
+            for (let i = 0; i < viewData.placemarks.length; i++) {
+                viewData.placemarks[i].groupsToAdd = array;
+            }
             return h.view("dashboard", viewData);
         },
     },
@@ -31,16 +44,18 @@ export const dashboardController = {
             const user = await db.userStore.getUserById(loggedInUser._id);
             const placemark = {
                 name: request.payload.name,
-                category: "",
+                category: request.payload.category,
                 description: request.payload.description,
                 image: "",
                 location: {latitude: request.payload.latitude, longitude: request.payload.longitude},
             };
+            console.log(placemark);
             await db.placemarkStore.addPlacemark(loggedInUser._id, placemark); // Function from mongo store name conflict
             return h.redirect("/dashboard");
         },
     },
 
+    //joi validation
     addGroup: {
         handler: async function (request, h) {
             const loggedInUser = request.auth.credentials;
@@ -54,10 +69,36 @@ export const dashboardController = {
         },
     },
 
+    addPlacemarkToGroup: {
+        handler: async function (request, h) {
+            const loggedInUser = request.auth.credentials;
+            const user = await db.userStore.getUserById(loggedInUser._id);
+            const placemark = await db.placemarkStore.getPlacemarkById(request.payload.placemarkId);
+            const group = await db.groupStore.getGroupById(request.payload.groupId);
+
+            // console.log(placemark);
+            // console.log(group);
+            // console.log(placemark._id);
+            // console.log(group.arrayOfPlacemarkIds);
+            group.arrayOfPlacemarkIds.push(placemark._id);
+            // console.log(group.arrayOfPlacemarkIds);
+            await group.save();
+            // group.markModified("arrayOfPlacemarkIds");
+            // group.save();
+
+            // console.log(group);
+
+            return h.redirect("/dashboard");
+        },
+    },
+
     deletePlacemark: {
         handler: async function (request, h) {
             const placemarkToDelete = await db.placemarkStore.getPlacemarkById(request.params.id);
-            await db.placemarkStore.deletePlacemarkById(placemarkToDelete._id);
+            const loggedInUser = request.auth.credentials;
+            if(placemarkToDelete.createdById.equals(loggedInUser._id) || loggedInUser.isAdmin){
+                await db.placemarkStore.deletePlacemarkById(placemarkToDelete._id);
+            }
             return h.redirect("/dashboard");
         },
     },

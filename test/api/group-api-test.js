@@ -4,6 +4,7 @@ import { assertSubset } from "../test-utils.js";
 import { maggie, history, testGroups, maggieCredentials } from "../fixtures.js";
 
 
+//  getGroup now only gets the group with the id array but not with the placemarks array
 suite("Group API tests", () => {
 
     setup(async () => {

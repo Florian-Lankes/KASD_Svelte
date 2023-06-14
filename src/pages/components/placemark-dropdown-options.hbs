@@ -9,10 +9,19 @@
     </div>
     <div class="dropdown-menu" id="dropdown-menu" role="menu">
         <div class="dropdown-content">
-            {{#each ../../groups}}
-                <a href="#" class="dropdown-item">
-                    {{title}}
-                </a>
+            {{#each groupsToAdd}}
+                <form action="/dashboard/addPlacemarkToGroup" method="POST">
+                    <div class="field">
+                        <input class="input" type="hidden" name="groupId" value= {{id}}>
+                    </div>
+                    <div class="field">
+                        <input class="input" type="hidden" name="placemarkId" value= {{../_id}}>
+                    </div>
+                    <div class="field">
+                        <button class="is-link">{{title}}</button>
+                    </div>
+                </form>
+
             {{/each}}
         </div>
     </div>

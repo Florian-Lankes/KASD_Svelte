@@ -24,6 +24,7 @@ export const groupApi = {
 
         async handler(request) {
             try {
+                // use getGroupPlusPlacemarkInfoById if you want the placemarks not only by id array, but by object array
                 const group = await db.groupStore.getGroupById(request.params.id);
                 if (!group) {
                     return Boom.notFound("No Group with this id");
@@ -62,6 +63,7 @@ export const groupApi = {
 
         handler: async function (request, h) {
             try {
+                // use getGroupPlusPlacemarkInfoById if you want the placemarks not only by id array, but by object array
                 const group = await db.groupStore.getGroupById(request.params.id);
                 if (!group) {
                     return Boom.notFound("No Group with this id");
