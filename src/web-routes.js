@@ -21,6 +21,8 @@ export const webRoutes = [
 
     { method: "GET", path: "/placemark/{id}", config: placemarkController.index },
     { method: "POST", path: "/placemark/{id}/uploadimage", config: placemarkController.uploadImage },
+    { method: "GET", path: "/placemark/{id}/deleteimage", config: placemarkController.deleteImage},
+    { method: "POST", path: "/placemark/{id}/update", config: placemarkController.updatePlacemark},
 
 
     { method: "GET", path: "/group/{id}", config: groupController.index },
@@ -28,4 +30,9 @@ export const webRoutes = [
 
     { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
 
+    // about
+    // analytics
+    // edit placemarks -> POST update placemarks
+    // delete image
+    // admin stuff
 ];

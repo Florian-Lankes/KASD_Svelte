@@ -40,7 +40,9 @@ const swaggerOptions = {
 };
 
 // Not finished: Group view edit, edit placemarks, admin, adding placemarks to groups
-//dasboard constroller adding the placemark to the group does not work
+// dasboard constroller adding the placemark to the group does not work
+// one minor bus is, when adding a Placmeark to a group, you can add the same placemark as often as you like.
+// -> however this is only in the database, because the query filters duplicate results
 async function init() {
     const server = Hapi.server({
         port: 3000,

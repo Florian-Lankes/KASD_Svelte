@@ -64,8 +64,19 @@ export const placemarkMongoStore = {
         await Placemark.deleteMany({});
     },
 
+    async updatePlacemark(placemark, updatedPlacemark){
+        //need to use query again because placemark is a lean object which save cant be called upon
+        const placemarkMongoDB = await Placemark.findOne({ _id: placemark._id });
+        placemarkMongoDB.name = updatedPlacemark.name;
+        placemarkMongoDB.description = updatedPlacemark.description;
+        placemarkMongoDB.location.latitude = updatedPlacemark.location.latitude;
+        placemarkMongoDB.location.longitude = updatedPlacemark.location.longitude;
+        placemarkMongoDB.category = updatedPlacemark.category;
+        await placemarkMongoDB.save();
+    },
 
-    async updatePlacemark(updatedPlacemark) {
+
+    async updatePlacemarkImage(updatedPlacemark) {
         const placemark = await Placemark.findOne({ _id: updatedPlacemark._id });
         placemark.title = updatedPlacemark.title;
         placemark.image = updatedPlacemark.image;
