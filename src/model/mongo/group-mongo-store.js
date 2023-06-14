@@ -47,7 +47,7 @@ export const groupMongoStore = {
     async getGroupPlusPlacemarkInfoById(id) {
         if (id) {
             const group = await Group.findOne({ _id: id });
-
+            // should implement a safeguard when wrong id passed in
             const returneGroup = await Group.aggregate([
                 {$match: {_id: group._id}},
                 {$lookup:
@@ -72,7 +72,7 @@ export const groupMongoStore = {
         return (this.getGroupById(groupObj._id));
     },
 
-    async deletePlacemarkWithId(id) {
+    async deletePlacemarkWithId(id) { // From all Groups
         // Find groups with id in array
         // console.log(id);
         const groups = await Group.find( { arrayOfPlacemarkIds: id} );
@@ -86,6 +86,17 @@ export const groupMongoStore = {
             { $pull: {arrayOfPlacemarkIds: id, }, })
 
         groups.forEach(group => group.save());
+    },
+
+    async deletePlacemarkWithIdFromGroupWithId(groupId, placemarkId) { // From Group with groupId
+
+        const group = await Group.findOne({ _id: groupId });
+
+        await Group.updateMany(
+            { _id: group._id},
+            { $pull: {arrayOfPlacemarkIds: placemarkId, }, })
+
+        group.save();
     },
 
     async getUserGroups(id) {

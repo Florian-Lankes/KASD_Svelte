@@ -6,13 +6,14 @@ export const dashboardController = {
     index: {
         // in dashboard view there are all Placemarks displayed, but only the groups of the logged in user
         // Only the user (or admin) who created the Placemarks or Groups should be able to edit them
+        // Maybe I can solve the issue with the placemark options better in the Future
         handler: async function (request, h) {
             const loggedInUser = request.auth.credentials;
             const viewData = {
                 title: "Dashboard",
                 user: request.auth.credentials,
-                placemarks: await db.placemarkStore.getAllPlacemarks(),
-                groups: await db.groupStore.getUserGroups(loggedInUser._id),
+                placemarks: await db.placemarkStore.getAllPlacemarks(), // placemarks from every user
+                groups: await db.groupStore.getUserGroups(loggedInUser._id), // groups from loggedIn User
             };
             // adding options to placemark for group adding
             const array = [];

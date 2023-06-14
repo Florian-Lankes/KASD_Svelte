@@ -26,6 +26,7 @@ export const webRoutes = [
 
 
     { method: "GET", path: "/group/{id}", config: groupController.index },
+    { method: "GET", path: "/group/{id}/removePlacemark/{placemarkId}", config: groupController.removePlacemark },
 
 
     { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },

@@ -6,10 +6,18 @@
             <i class="fas fa-folder-open"></i>
         </a>
 
+        <! Important should only be visible on Dashboard>
         <a href="/dashboard/deleteplacemark/{{_id}}" class="button">
             <i class="fas fa-trash"></i>
         </a>
-        <! Add to group needs to be done later>
+        <! Important should only be visible on GroupPage>
+        <a href="/group/{{../group._id}}/removePlacemark/{{_id}}" class="button">
+            <i class="fa-solid fa-minus"></i>
+        </a>
+        <! Important  I think this can be done with Handlebars helpers, but it always says so registered helper with that name>
+
         {{> placemark-dropdown-options}}
     </div>
 {{/each}}
+
+
