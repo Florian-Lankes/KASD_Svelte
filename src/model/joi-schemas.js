@@ -83,7 +83,9 @@ export const GroupSpecPlus = GroupSpec
     .keys({
         _id: IdSpec,
         __v: Joi.number(),
-
+        $__: Joi.object(),
+        $isNew: Joi.boolean(),
+        _doc: Joi.object(),
     }).label("GroupDetailsPlus");
 
 export const GroupArraySpec = Joi.array().items(GroupSpecPlus).label("GroupArray");

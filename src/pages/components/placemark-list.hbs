@@ -1,7 +1,12 @@
 {{#each placemarks}}
-    <div class="box box-link-hover-shadow" >
-        <h2 class="name">{{name}}</h2>
+    <h2 class="name">{{name}}</h2>
+    <div class="box box-link-hover-shadow columns" >
 
+        <div class="card-image">
+            <figure class="image is-128x128">
+                <img src={{image}}>
+            </figure>
+        </div>
         <a  href="/placemark/{{_id}}" class="button">
             <i class="fas fa-folder-open"></i>
         </a>
@@ -16,6 +21,7 @@
         <! Important  I think this can be done with Handlebars helpers, but it always says so registered helper with that name>
 
         {{> placemark-dropdown-options}}
+
     </div>
 {{/each}}
 

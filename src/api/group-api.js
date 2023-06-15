@@ -66,6 +66,7 @@ export const groupApi = {
                 const group = request.payload;
                 const userId = request.auth.credentials._id;
                 const newGroup = await db.groupStore.addGroup(userId ,group);
+                console.log(newGroup);
                 if (newGroup) {
                     return h.response(newGroup).code(201);
                 }
@@ -78,8 +79,7 @@ export const groupApi = {
         description: "Create a group",
         notes: "Returns the newly created group",
         validate: { payload: GroupCredentialsSpec, failAction: validationError },
-        // response: { schema: GroupSpecPlus, failAction: validationError }, // "$__" is now allowed
-
+        response: { schema: GroupSpecPlus, failAction: validationError }, // -> GroupSpecPlus has weird attributes (could just delete Joi validation)
     },
 
     deleteOne: {
