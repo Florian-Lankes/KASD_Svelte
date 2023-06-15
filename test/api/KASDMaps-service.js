@@ -48,8 +48,8 @@ export const KASDMapsService = {
         return res;
     },
 
-    async createGroup(id, group) {
-        const res = await axios.post(`${this.KASDMapsUrl}/api/user/${id}/group`, group);
+    async createGroup(group) { // different
+        const res = await axios.post(`${this.KASDMapsUrl}/api/user/group`, group);
         return res.data;
     },
 

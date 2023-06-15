@@ -16,7 +16,9 @@ export const apiRoutes = [
 
     // group.create id in route
     { method: "GET", path: "/api/groups", config: groupApi.find },
-    { method: "POST", path: "/api/user/{id}/group", config: groupApi.create },
+
+    // removed id from route /api/user/${id}/group because it is requested from auth.credentials so it is not used
+    { method: "POST", path: "/api/user/group", config: groupApi.create },
     { method: "DELETE", path: "/api/groups", config: groupApi.deleteAll },
     { method: "DELETE", path: "/api/group/{id}", config: groupApi.deleteOne },
     { method: "GET", path: "/api/group/{id}", config: groupApi.findOne },

@@ -85,9 +85,7 @@ export const GroupSpecPlus = GroupSpec
         __v: Joi.number(),
     }).label("GroupDetailsPlus");
 
-
-
-
+export const GroupArraySpec = Joi.array().items(GroupSpecPlus).label("GroupArray");
 
 
 export const JwtAuth = Joi.object() //needed later for jwt

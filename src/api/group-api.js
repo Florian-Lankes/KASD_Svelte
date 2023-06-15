@@ -1,5 +1,14 @@
 import Boom from "@hapi/boom";
 import { db } from "../model/db.js";
+import {
+    GroupArraySpec,
+    GroupSpecPlus,
+    IdSpec,
+    GroupSpec,
+    PlacemarkSpecReal,
+    PlacemarkSpecPlus, GroupCredentialsSpec
+} from "../model/joi-schemas.js";
+import {validationError} from "./logger.js";
 
 
 // missing swagger
@@ -17,6 +26,10 @@ export const groupApi = {
                 return Boom.serverUnavailable("Database Error");
             }
         },
+        tags: ["api"],
+        response: { schema: GroupArraySpec, failAction: validationError },
+        description: "Get all groups",
+        notes: "Returns all groups",
     },
 
     findOne: {
@@ -36,6 +49,11 @@ export const groupApi = {
                 return Boom.serverUnavailable("No Group with this id");
             }
         },
+        tags: ["api"],
+        description: "Find a group",
+        notes: "Returns a group",
+        validate: { params: { id: IdSpec }, failAction: validationError },
+        response: { schema: GroupSpecPlus, failAction: validationError },
     },
 
     create: {
@@ -46,7 +64,7 @@ export const groupApi = {
         handler: async function (request, h) {
             try {
                 const group = request.payload;
-                const userId = request.params.id;
+                const userId = request.auth.credentials._id;
                 const newGroup = await db.groupStore.addGroup(userId ,group);
                 if (newGroup) {
                     return h.response(newGroup).code(201);
@@ -56,6 +74,12 @@ export const groupApi = {
                 return Boom.serverUnavailable("Database Error");
             }
         },
+        tags: ["api"],
+        description: "Create a group",
+        notes: "Returns the newly created group",
+        validate: { payload: GroupCredentialsSpec, failAction: validationError }, //PlacemarkSpecPlus
+        // response: { schema: GroupSpecPlus, failAction: validationError }, // "$__" is now allowed
+
     },
 
     deleteOne: {
@@ -76,6 +100,9 @@ export const groupApi = {
                 return Boom.serverUnavailable("No Group with this id");
             }
         },
+        tags: ["api"],
+        description: "Delete a group",
+        validate: { params: { id: IdSpec }, failAction: validationError },
     },
 
     deleteAll: {
@@ -91,5 +118,7 @@ export const groupApi = {
                 return Boom.serverUnavailable("Database Error");
             }
         },
+        tags: ["api"],
+        description: "Delete all GroupApi",
     },
 };

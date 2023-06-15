@@ -15,7 +15,7 @@ suite("Group API tests", () => {
         await KASDMapsService.deleteAllUsers();
         const user = await KASDMapsService.createUser(maggie);
         await KASDMapsService.authenticate(maggieCredentials);
-        history.userid = user._id;
+        // history.userid = user._id;
 
     });
 
@@ -24,15 +24,15 @@ suite("Group API tests", () => {
     test("create group", async () => {
         const user = await KASDMapsService.createUser(maggie);
         await KASDMapsService.authenticate(maggieCredentials);
-        const returnedGroups = await KASDMapsService.createGroup(user._id, history);
-        assert.isNotNull(returnedGroups);
-        assertSubset(history, returnedGroups);
+        const returnedGroup = await KASDMapsService.createGroup(history);
+        assert.isNotNull(returnedGroup);
+        assertSubset(history, returnedGroup);
     });
 
     test("delete a group", async () => {
         const user = await KASDMapsService.createUser(maggie);
         await KASDMapsService.authenticate(maggieCredentials);
-        const group = await KASDMapsService.createGroup(user._id, history);
+        const group = await KASDMapsService.createGroup(history);
         const response = await KASDMapsService.deleteGroup(group._id);
         assert.equal(response.status, 204);
         try {
@@ -47,9 +47,9 @@ suite("Group API tests", () => {
         const user = await KASDMapsService.createUser(maggie);
         await KASDMapsService.authenticate(maggieCredentials);
         for (let i = 0; i < testGroups.length; i += 1) {
-            testGroups[i].userid = user._id;
+            // testGroups[i].userid = user._id;
             // eslint-disable-next-line no-await-in-loop
-            await KASDMapsService.createGroup(user._id, testGroups[i]);
+            await KASDMapsService.createGroup(testGroups[i]);
         }
         let returnedLists = await KASDMapsService.getAllGroups();
         assert.equal(returnedLists.length, testGroups.length);
