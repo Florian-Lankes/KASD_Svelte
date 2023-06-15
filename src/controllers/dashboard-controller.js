@@ -77,12 +77,18 @@ export const dashboardController = {
             const placemark = await db.placemarkStore.getPlacemarkById(request.payload.placemarkId);
             const group = await db.groupStore.getGroupById(request.payload.groupId);
 
+            // check if placemark is already in group
+            const isInArray = group.arrayOfPlacemarkIds.some(function (placemarkId) {
+                return placemarkId.equals(placemark._id);
+            });
+            // console.log(isInArray);
             // console.log(placemark);
             // console.log(group);
             // console.log(placemark._id);
             // console.log(group.arrayOfPlacemarkIds);
-            group.arrayOfPlacemarkIds.push(placemark._id);
-            // console.log(group.arrayOfPlacemarkIds);
+            if(!isInArray){
+                group.arrayOfPlacemarkIds.push(placemark._id);  // console.log(group.arrayOfPlacemarkIds);
+            };
             await group.save();
             // group.markModified("arrayOfPlacemarkIds");
             // group.save();

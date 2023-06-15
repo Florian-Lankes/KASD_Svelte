@@ -39,10 +39,7 @@ const swaggerOptions = {
     security: [{ jwt: [] }]
 };
 
-// Not finished: Group view edit, admin
-// dashboard controller adding the placemark to the group does not work
-// one minor bus is, when adding a Placmeark to a group, you can add the same placemark as often as you like.
-// -> however this is only in the database, because the query filters duplicate results
+// Not finished: admin
 // should fix the Add to Group dropdown in Group page
 async function init() {
     const server = Hapi.server({
