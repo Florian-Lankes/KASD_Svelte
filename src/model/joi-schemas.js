@@ -14,7 +14,7 @@ export const UserSpec = UserCredentialsSpec
         firstName: Joi.string().example("Homer").required(),
         lastName: Joi.string().example("Simpson").required(),
         username: Joi.string().example("HomerSimpson").optional(),
-        isAdmin: Joi.boolean().default(false).required().example("true"),
+        isAdmin: Joi.boolean().required().example("true"),
     }).label("UserDetails");
 
 export const UserSpecPlus = UserSpec
@@ -27,7 +27,7 @@ export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
 
 
 
-
+// PlacemarkSpec for addPlacemark that the latitude and longitude are seperate
 export const PlacemarkSpec = Joi.object()
     .keys({
         name: Joi.string().required().example("Steinerne Brücke"),
@@ -44,14 +44,14 @@ export const PlacemarkSpec = Joi.object()
 export const PlacemarkSpecReal = Joi.object()
     .keys({
         name: Joi.string().required().example("Steinerne Brücke"),
+        category: Joi.string().required().example("footbridge"),
         description: Joi.string().required().example("Stone bridge built in 1100s featuring 16 arches spanning 300m over the Danube River."),
+        image: Joi.string().optional().example("").allow(""),
         location: {
             latitude: Joi.number().min(-90).max(90).example(49.022676838235945),
             longitude: Joi.number().min(-180).max(180).example(12.097234021044144),
         },
-        category: Joi.string().required().example("footbridge"),
         createdById: IdSpec,
-        image: Joi.string().optional().example("").allow(""),
     })
     .label("PlacemarkReal")
 

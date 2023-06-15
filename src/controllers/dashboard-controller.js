@@ -55,7 +55,7 @@ export const dashboardController = {
             payload: PlacemarkSpec,
             options: { abortEarly: false },
             failAction: async function (request, h, error) {
-                // does not return desired result because viewData is missing
+                // does not return desired result because viewData is missing (shows dashboard with no data)
                 return h.view("dashboard", { title: "Add Placemark error", errors: error.details }).takeover().code(400);
             },
         },
@@ -81,7 +81,7 @@ export const dashboardController = {
             payload: GroupCredentialsSpec,
             options: { abortEarly: false },
             failAction: async function (request, h, error) {
-                // does not return desired result because viewData is missing
+                // does not return desired result because viewData is missing (shows dashboard with no data)
                 return h.view("dashboard", { title: "Add Group error", errors: error.details }).takeover().code(400);
             },
         },

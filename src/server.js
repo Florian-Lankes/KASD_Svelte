@@ -39,7 +39,7 @@ const swaggerOptions = {
     security: [{ jwt: [] }]
 };
 
-// Not finished: admin
+// Not finished: admin idk
 // should fix the Add to Group dropdown in Group page
 // should I delete the Placemarks of the deleted User?
 async function init() {

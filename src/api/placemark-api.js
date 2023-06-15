@@ -70,7 +70,7 @@ export const placemarkApi = {
         tags: ["api"],
         description: "Create a placemark",
         notes: "Returns the newly created placemark",
-        validate: { payload: PlacemarkSpecReal, failAction: validationError },
+        validate: { payload: PlacemarkSpecReal, failAction: validationError }, //PlacemarkSpecPlus
         response: { schema: PlacemarkSpecPlus, failAction: validationError },
     },
 

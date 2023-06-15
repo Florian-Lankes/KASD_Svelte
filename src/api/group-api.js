@@ -1,6 +1,8 @@
 import Boom from "@hapi/boom";
 import { db } from "../model/db.js";
 
+
+// missing swagger
 export const groupApi = {
     find: {
         auth: {

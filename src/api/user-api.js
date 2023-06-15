@@ -4,6 +4,8 @@ import {IdSpec, JwtAuth, UserArray, UserCredentialsSpec, UserSpec, UserSpecPlus}
 import { validationError } from "./logger.js";
 import { createToken } from "./jwt-utils.js";
 
+
+
 export const userApi = {
     find: {
         auth: {
@@ -63,7 +65,7 @@ export const userApi = {
         tags: ["api"],
         description: "Create a User",
         notes: "Returns the newly created user",
-        validate: { payload: UserSpec, failAction: validationError },
+        validate: { payload: UserSpec, failAction: validationError }, // UserSpecPlus
         response: { schema: UserSpecPlus, failAction: validationError },
     },
 

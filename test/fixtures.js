@@ -11,8 +11,7 @@ export const maggie = {
 
 export const maggieCredentials = {
     email: "maggie@simpson.com",
-    password: "secret",
-    isAdmin: false
+    password: "secret"
 };
 
 export const mozart = {
