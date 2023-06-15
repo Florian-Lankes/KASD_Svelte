@@ -12,12 +12,17 @@ export const webRoutes = [
     { method: "POST", path: "/register", config: accountsController.signup },
     { method: "POST", path: "/authenticate", config: accountsController.login },
 
+    { method: "GET", path: "/user/{id}", config: accountsController.showUser },
+    { method: "GET", path: "/deleteUser/{id}", config: accountsController.deleteUser },
+
+
     { method: "GET", path: "/dashboard", config: dashboardController.index },
     { method: "POST", path: "/dashboard/addplacemark", config: dashboardController.addPlacemark },
     { method: "GET", path: "/dashboard/deleteplacemark/{id}", config: dashboardController.deletePlacemark },
     { method: "POST", path: "/dashboard/addgroup", config: dashboardController.addGroup},
     { method: "GET", path: "/dashboard/deletegroup/{id}", config: dashboardController.deleteGroup },
     { method: "POST", path: "/dashboard/addPlacemarkToGroup", config: dashboardController.addPlacemarkToGroup },
+    { method: "GET", path: "/dashboard/admin", config: dashboardController.adminDashboard},
 
     { method: "GET", path: "/placemark/{id}", config: placemarkController.index },
     { method: "POST", path: "/placemark/{id}/uploadimage", config: placemarkController.uploadImage },

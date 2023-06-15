@@ -30,12 +30,14 @@ export const accountsController = {
         handler: async function (request, h) {
             const user = request.payload;
             console.log(user);
-            const user2 = { firstname: request.payload.firstName,
+            const user2 = { firstName: request.payload.firstName,
                             lastName: request.payload.lastName,
+                            username: request.payload.firstName + request.payload.lastName,
                             email: request.payload.email,
-                            password: request.payload.password}
-
-            await db.userStore.addUser(user);
+                            password: request.payload.password,
+                            isAdmin: request.payload.isAdmin}
+            console.log(user2);
+            await db.userStore.addUser(user2);
             return h.redirect("/");
         },
     },
@@ -73,6 +75,31 @@ export const accountsController = {
         handler: function (request, h) {
             request.cookieAuth.clear();
             return h.redirect("/");
+        },
+    },
+
+    // auth not defined
+    showUser: {
+        handler: async function (request, h) {
+            const user = await db.userStore.getUserById(request.params.id);
+            const loggedInUser = request.auth.credentials;
+            const loggedInUserIsAdmin = loggedInUser.isAdmin;
+            return h.view("user-info-page", { user, loggedInUserIsAdmin});
+        },
+    },
+
+    // auth not defined
+    deleteUser: {
+        handler: async function (request, h) {
+            const loggedInUser = request.auth.credentials;
+            const userToDelete = await db.userStore.getUserById(request.params.id);
+            if(userToDelete.isAdmin){
+                // could add viewData to display an error code when not able to delete
+                return h.redirect("/dashboard/admin");
+            }
+            // should I delete the Placemarks of the deleted User?
+            await db.userStore.deleteUserById(userToDelete._id);
+            return h.redirect("/dashboard/admin");
         },
     },
 

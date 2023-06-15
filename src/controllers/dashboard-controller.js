@@ -6,7 +6,9 @@ export const dashboardController = {
     index: {
         // in dashboard view there are all Placemarks displayed, but only the groups of the logged in user
         // Only the user (or admin) who created the Placemarks or Groups should be able to edit them
+
         // Maybe I can solve the issue with the placemark options better in the Future
+        // Fix duplicate from index and adminDashboard
         handler: async function (request, h) {
             const loggedInUser = request.auth.credentials;
             const viewData = {
@@ -14,6 +16,7 @@ export const dashboardController = {
                 user: request.auth.credentials,
                 placemarks: await db.placemarkStore.getAllPlacemarks(), // placemarks from every user
                 groups: await db.groupStore.getUserGroups(loggedInUser._id), // groups from loggedIn User
+                loggedInUserIsAdmin: loggedInUser.isAdmin
             };
             // adding options to placemark for group adding
             const array = [];
@@ -28,6 +31,22 @@ export const dashboardController = {
                 viewData.placemarks[i].groupsToAdd = array;
             }
             return h.view("dashboard", viewData);
+        },
+    },
+
+    adminDashboard: {
+        // in dashboard view there are all Placemarks displayed, but only the groups of the logged in user
+        // Only the user (or admin) who created the Placemarks or Groups should be able to edit them
+        // Maybe I can solve the issue with the placemark options better in the Future
+        handler: async function (request, h) {
+            const loggedInUser = request.auth.credentials;
+            const viewData = {
+                title: "Admin Dashboard",
+                user: request.auth.credentials,
+                users: await db.userStore.getAllUsers(),
+                loggedInUserIsAdmin: loggedInUser.isAdmin
+            };
+            return h.view("admin-dashboard", viewData);
         },
     },
 

@@ -41,6 +41,7 @@ const swaggerOptions = {
 
 // Not finished: admin
 // should fix the Add to Group dropdown in Group page
+// should I delete the Placemarks of the deleted User?
 async function init() {
     const server = Hapi.server({
         port: 3000,
