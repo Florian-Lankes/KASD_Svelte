@@ -66,16 +66,24 @@ export const PlacemarkArraySpec = Joi.array().items(PlacemarkSpecPlus).label("Pl
 
 
 
+export const PlacemarkIdArray = Joi.array().items(IdSpec).label("PlacemarkIdArray");
+export const GroupCredentialsSpec = Joi.object()
+    .keys({
+        title: Joi.string().required().example("Want to visit")
+    })
+    .label("GroupCredentials");
 
+export const GroupSpec = GroupCredentialsSpec
+    .keys({
+        userId: IdSpec,
+        arrayOfPlacemarkIds: PlacemarkIdArray
+    }).label("GroupDetails");
 
-
-
-
-
-
-
-
-
+export const GroupSpecPlus = GroupSpec
+    .keys({
+        _id: IdSpec,
+        __v: Joi.number(),
+    }).label("GroupDetailsPlus");
 
 
 

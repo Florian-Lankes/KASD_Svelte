@@ -30,8 +30,7 @@ export const groupController = {
     removePlacemark: {
         handler: async function (request, h) {
             const groupId = request.params.id;
-            const placemarkId = request.params.placemarkId;
-            await db.groupStore.deletePlacemarkWithIdFromGroupWithId(groupId, placemarkId);
+            await db.groupStore.deletePlacemarkWithIdFromGroupWithId(groupId, request.params.placemarkId);
             return h.redirect(`/group/${groupId}`);
         },
     },

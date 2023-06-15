@@ -1,5 +1,5 @@
 import { db } from "../model/db.js";
-import { PlacemarkSpec } from "../model/joi-schemas.js";
+import {GroupCredentialsSpec, PlacemarkSpec} from "../model/joi-schemas.js";
 import { Group } from "../model/mongo/group.js";
 
 export const dashboardController = {
@@ -56,7 +56,7 @@ export const dashboardController = {
             options: { abortEarly: false },
             failAction: async function (request, h, error) {
                 // does not return desired result because viewData is missing
-                return h.view("dashboard", { title: "Add Playlist error", errors: error.details }).takeover().code(400);
+                return h.view("dashboard", { title: "Add Placemark error", errors: error.details }).takeover().code(400);
             },
         },
         handler: async function (request, h) {
@@ -77,6 +77,14 @@ export const dashboardController = {
 
     //joi validation
     addGroup: {
+        validate: {
+            payload: GroupCredentialsSpec,
+            options: { abortEarly: false },
+            failAction: async function (request, h, error) {
+                // does not return desired result because viewData is missing
+                return h.view("dashboard", { title: "Add Group error", errors: error.details }).takeover().code(400);
+            },
+        },
         handler: async function (request, h) {
             const loggedInUser = request.auth.credentials;
             const user = await db.userStore.getUserById(loggedInUser._id);
