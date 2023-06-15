@@ -77,7 +77,7 @@ export const groupApi = {
         tags: ["api"],
         description: "Create a group",
         notes: "Returns the newly created group",
-        validate: { payload: GroupCredentialsSpec, failAction: validationError }, //PlacemarkSpecPlus
+        validate: { payload: GroupCredentialsSpec, failAction: validationError },
         // response: { schema: GroupSpecPlus, failAction: validationError }, // "$__" is now allowed
 
     },

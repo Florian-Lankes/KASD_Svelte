@@ -75,7 +75,7 @@ export const hochschule =
         category: "university",
         description: "ttt",
         image: "",
-        location:{latitude: 49.00246815044316, longitude: 12.097496555850848},
+        location:{latitude: 49.00246815044316, longitude: 12.097496555850848}
     };
 
 
