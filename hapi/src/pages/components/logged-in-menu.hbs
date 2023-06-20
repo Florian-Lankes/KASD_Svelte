@@ -1,0 +1,17 @@
+<nav class="navbar">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"> <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span> <span aria-hidden="true"></span> </a>
+    <div class="navbar-menu" id="navMenu">
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    {{#if loggedInUserIsAdmin}}
+                    <a id="adminDasboard" class="button" href="/dashboard/admin"> Admin Dashboard </a>
+                    {{/if}}
+                    <a id="dashboard" class="button" href="/dashboard"> Dashboard </a>
+                    <a id="logout" class="button" href="/logout"> Logout </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
