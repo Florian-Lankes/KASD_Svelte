@@ -3,7 +3,7 @@
     import { LeafletMap } from "../services/leaflet-map";
     import { onMount } from "svelte";
     import {KASDMapsService} from "../services/KASD-Maps-service.js";
-    // import { lastCreatedPlacemark } from "../stores.js";
+    import { latestPlacemark } from "../stores.js";
 
     const mapConfig = {
         location: {latitude: 49.020895276653654, longitude: 12.1018256612773},
@@ -11,8 +11,9 @@
         minZoom: 1
     };
 
+    let map;
     onMount(async () => {
-        let map = new LeafletMap("placemark-map", mapConfig);
+        map = new LeafletMap("placemark-map", mapConfig);
         map.showZoomControl();
         map.addLayerGroup('Placemarks');
         map.showLayerControl();
@@ -22,7 +23,11 @@
         });
     });
 
-
+    latestPlacemark.subscribe((placemark) => {
+        if (placemark && map) {
+            map.addMarker({ latitude: placemark.location.latitude, longitude: placemark.location.longitude }, placemark.name, "Placemarks");
+        }
+    });
 
 </script>
 

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import axios from "axios";
-import { user } from "../stores";
+import { user, latestPlacemark } from "../stores";
 
 export const KASDMapsService = {
     baseUrl: "http://localhost:3000",
@@ -58,6 +58,17 @@ export const KASDMapsService = {
         } catch(error){
             return [];
         }
+    },
+
+    async addPlacemark(placemark){
+        try {
+          let response;
+          response = await axios.post(`${this.baseUrl}/api/user/placemark`, placemark);
+          latestPlacemark.set(placemark);
+          return response.status === 201;
+      } catch(error){
+          return false;
+      }
     },
 
     reload() {

@@ -7,4 +7,4 @@ export const user = writable({
 });
 
 
-// export const latestPlacemark = writable(null);
+export const latestPlacemark = writable(null);
