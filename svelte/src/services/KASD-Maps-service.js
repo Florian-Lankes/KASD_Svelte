@@ -13,7 +13,8 @@ export const KASDMapsService = {
             if (response.data.success) {
                 user.set({
                     email: email,
-                    token: response.data.token
+                    token: response.data.token,
+                    userId: response.data.userId
                 });
                 localStorage.localUser = JSON.stringify({ email: email, token: response.data.token});
                 return true;
@@ -29,6 +30,7 @@ export const KASDMapsService = {
         user.set({
             email: "",
             token: "",
+            userId: "",
         });
         axios.defaults.headers.common["Authorization"] = "";
         localStorage.removeItem("localUser");
@@ -47,6 +49,20 @@ export const KASDMapsService = {
             return true;
         } catch (error) {
             return false;
+        }
+    },
+
+    async getUserId() {
+        try {
+            let response = null;
+            const localUserCredentials = localStorage.localUser;
+            if (localUserCredentials) {
+                const savedUser = JSON.parse(localUserCredentials);
+                response = savedUser.userId;
+            }
+            return response;
+        } catch(error){
+            return [];
         }
     },
 
@@ -79,6 +95,17 @@ export const KASDMapsService = {
       } catch(error){
           return false;
       }
+    },
+
+    async addPlacemarkToGroup(placemarkId, groupId){
+        try {
+            console.log("t");
+            const response = await axios.get(`${this.baseUrl}/api/addPlacemark/${placemarkId}/group/${groupId}`);
+            console.log("tt");
+            return response;
+        } catch(error){
+            return false;
+        }
     },
 
     async getPlacemark(id){
@@ -114,7 +141,8 @@ export const KASDMapsService = {
             const savedUser = JSON.parse(localUserCredentials);
             user.set({
                 email: savedUser.email,
-                token: savedUser.token
+                token: savedUser.token,
+                userId: savedUser.userId
             });
             axios.defaults.headers.common["Authorization"] = "Bearer " + savedUser.token;
         }

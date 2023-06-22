@@ -2,18 +2,30 @@
     import {onMount} from "svelte";
     import {KASDMapsService} from "../services/KASD-Maps-service.js";
     let placemarks = [];
+    let groups = [];
 
     export let propValue;
 
     onMount(async () => {
         placemarks = await KASDMapsService.getAllPlacemarks();
-
-        console.log("propValue: ");
-        console.log(propValue);
+        const loggedInUserId = KASDMapsService.getUserId();
+        groups = await KASDMapsService.getUserGroups(loggedInUserId);
+        console.log("groups: ");
+        console.log(groups);
         if(propValue != undefined) {
             placemarks = propValue.group.placemarks;
         }
     });
+
+    let group;
+    let placemarkId
+    async function addToGroup() {
+        // add placemarkId to group._id
+        console.log(group._id);
+        console.log(placemarkId);
+        const response = await KASDMapsService.addPlacemarkToGroup(placemarkId, group._id);
+
+    }
 </script>
 <div class="column box has-text-centered m-4">
     <h1 class="title is-5" >Placemarks: </h1>
@@ -44,6 +56,20 @@
                     <a href="/dashboard/placemark/{placemark._id}" class="button">
                         <i class="fas fa-folder-open"></i>
                     </a>
+                </td>
+                <td>
+                    <form on:click={addToGroup}>
+                        <select bind:value={group} on:change="{() => placemarkId = placemark._id}">
+                            {#each groups as group}
+                                <option value={group}>
+                                    {group.title}
+                                </option>
+                            {/each}
+                        </select>
+
+                        <input type="hidden" bind:value={placemarkId} />
+
+                    </form>
                 </td>
             </tr>
         {/each}
