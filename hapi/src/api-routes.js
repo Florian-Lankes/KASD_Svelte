@@ -13,6 +13,7 @@ export const apiRoutes = [
     { method: "DELETE", path: "/api/placemarks", config: placemarkApi.deleteAll },
     { method: "DELETE", path: "/api/placemark/{id}", config: placemarkApi.deleteOne },
     { method: "GET", path: "/api/placemark/{id}", config: placemarkApi.findOne },
+    { method: "GET", path: "/api/allImages", config: placemarkApi.allImages },
 
     // group.create id in route
     { method: "GET", path: "/api/groups", config: groupApi.find },
@@ -22,6 +23,8 @@ export const apiRoutes = [
     { method: "DELETE", path: "/api/groups", config: groupApi.deleteAll },
     { method: "DELETE", path: "/api/group/{id}", config: groupApi.deleteOne },
     { method: "GET", path: "/api/group/{id}", config: groupApi.findOne },
+    { method: "GET", path: "/api/groups/user/{id}", config: groupApi.findByUserId },
+    // { method: "GET", path: "/api/group/{id}", config: groupApi.findFullGroupById },
 
     { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },
 

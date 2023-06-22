@@ -60,6 +60,16 @@ export const KASDMapsService = {
         }
     },
 
+    async getAllImages() {
+        try {
+            // let response = [];
+            const response = await axios.get(`${this.baseUrl}/api/allImages`);
+            return response.data; // .data
+        } catch(error){
+            return [];
+        }
+    },
+
     async addPlacemark(placemark){
         try {
           let response;
@@ -69,6 +79,33 @@ export const KASDMapsService = {
       } catch(error){
           return false;
       }
+    },
+
+    async getPlacemark(id){
+        try{
+            const response = await axios.get(`${this.baseUrl}/api/placemark/${id}`);
+            return response.data; // .data
+        } catch(error){
+            return [];
+        }
+    },
+
+    async getUserGroups(id){
+        try{
+            const response = await axios.get(`${this.baseUrl}/api/groups/user/${id}`);
+            return response.data; // .data
+        } catch(error){
+            return [];
+        }
+    },
+
+    async getGroupById(id){
+        try{
+            const response = await axios.get(`${this.baseUrl}/api/group/${id}`);
+            return response.data; // .data
+        } catch(error){
+            return [];
+        }
     },
 
     reload() {

@@ -1,8 +1,9 @@
 import Boom from "@hapi/boom";
 import Joi from "joi";
 import { db } from "../model/db.js";
-import {IdSpec, PlacemarkArraySpec, PlacemarkSpecReal, PlacemarkSpecPlus} from "../model/joi-schemas.js";
+import { IdSpec, PlacemarkArraySpec, PlacemarkSpecReal, PlacemarkSpecPlus } from "../model/joi-schemas.js";
 import { validationError } from "./logger.js";
+import { imageStore } from "../model/image-store.js";
 
 export const placemarkApi = {
     find: {
@@ -24,11 +25,14 @@ export const placemarkApi = {
         notes: "Returns all placemarks",
     },
 
+    // jwt auth missing
     findOne: {
+        auth: false,
+        /*
         auth: {
             strategy: "jwt",
         },
-
+        */
         async handler(request, h) {
             try {
                 const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
@@ -111,5 +115,17 @@ export const placemarkApi = {
         },
         tags: ["api"],
         description: "Delete all PlacemarkApi",
+    },
+
+    allImages: {
+        auth: false,
+        handler: async function (request, h) {
+            try {
+                const images= imageStore.getAllImages();
+                return images;
+            } catch (err) {
+                return Boom.serverUnavailable("Database Error");
+            }
+        },
     },
 };
