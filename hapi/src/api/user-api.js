@@ -110,4 +110,55 @@ export const userApi = {
         validate: { payload: UserCredentialsSpec, failAction: validationError },
         response: { schema: JwtAuth, failAction: validationError },
     },
+
+    getAnalytics: {
+        auth: false,
+        handler: async function (request, h) {
+            try {
+                const userCount = await db.userStore.getUserCount();
+                const placemarkCount = await db.placemarkStore.getPlacemarkCount();
+                const soccerFieldCount = await db.placemarkStore.getPlacemarksCountByCategory("Soccer field");
+                const worldWonderCount = await db.placemarkStore.getPlacemarksCountByCategory("World wonder");
+                const riverCount = await db.placemarkStore.getPlacemarksCountByCategory("River");
+                const bridgeCount = await db.placemarkStore.getPlacemarksCountByCategory("Bridge");
+                const townCount = await db.placemarkStore.getPlacemarksCountByCategory("Town");
+                const cityCount = await db.placemarkStore.getPlacemarksCountByCategory("City");
+                const forestCount = await db.placemarkStore.getPlacemarksCountByCategory("Forest");
+                const landscapeFeatureCount = await db.placemarkStore.getPlacemarksCountByCategory("Landscape feature");
+                const nationalMonumentCount = await db.placemarkStore.getPlacemarksCountByCategory("National monument");
+                const walkingTrailCount = await db.placemarkStore.getPlacemarksCountByCategory("Walking Trail");
+                const treeCount = await db.placemarkStore.getPlacemarksCountByCategory("Tree");
+                const entertainmentVenueCount = await db.placemarkStore.getPlacemarksCountByCategory("Entertainment Venue");
+                const islandCount = await db.placemarkStore.getPlacemarksCountByCategory("Island");
+                const archaeologicalFeatureCount = await db.placemarkStore.getPlacemarksCountByCategory("Archaeological Feature");
+                const othersCount = await db.placemarkStore.getPlacemarksCountByCategory("Others");
+                const analyticsData = {
+                    userCount: userCount,
+                    placemarkCount: placemarkCount,
+                    soccerFieldCount: soccerFieldCount,
+                    worldWonderCount: worldWonderCount,
+                    riverCount: riverCount,
+                    bridgeCount: bridgeCount,
+                    townCount: townCount,
+                    cityCount: cityCount,
+                    forestCount: forestCount,
+                    landscapeFeatureCount: landscapeFeatureCount,
+                    nationalMonumentCount: nationalMonumentCount,
+                    walkingTrailCount: walkingTrailCount,
+                    treeCount: treeCount,
+                    entertainmentVenueCount: entertainmentVenueCount,
+                    islandCount: islandCount,
+                    archaeologicalFeatureCount: archaeologicalFeatureCount,
+                    othersCount: othersCount
+                }
+                return analyticsData;
+                // return h.response({ analytics: analyticsData}).code(201);
+            } catch (err) {
+                return Boom.serverUnavailable("Database Error");
+            }
+        },
+        tags: ["api"],
+        description: "Get analytics",
+        notes: "Returns analytics of specific Counts",
+    },
 };

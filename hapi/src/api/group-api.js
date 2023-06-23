@@ -191,8 +191,6 @@ export const groupApi = {
             try {
                 const placemarkId = request.params.placemarkId;
                 const groupId = request.params.groupId;
-                console.log(placemarkId);
-                console.log(groupId);
                 await db.groupStore.addPlacemarkToGroup(placemarkId, groupId);
                 return h.response().code(200);
             } catch (err) {

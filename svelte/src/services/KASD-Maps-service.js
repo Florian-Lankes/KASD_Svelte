@@ -86,6 +86,17 @@ export const KASDMapsService = {
         }
     },
 
+    async getAnalytics() {
+        try {
+            let response = [];
+            response = await axios.get(`${this.baseUrl}/api/analytics`);
+            console.log(response);
+            return response.data; // .data
+        } catch(error){
+            return [];
+        }
+    },
+
     async addPlacemark(placemark){
         try {
           let response;

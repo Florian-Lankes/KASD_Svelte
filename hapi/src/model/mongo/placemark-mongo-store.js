@@ -1,12 +1,23 @@
 import { Placemark } from "./placemark.js";
 import { groupMongoStore } from "./group-mongo-store.js";
 import { userMongoStore } from "./user-mongo-store.js";
+import {User} from "./user.js";
 
 export const placemarkMongoStore = {
 
     async getAllPlacemarks() {
         const placemark = await Placemark.find().lean();
         return placemark;
+    },
+
+    async getPlacemarkCount(){
+        const count = await Placemark.countDocuments();
+        return count;
+    },
+
+    async getPlacemarksCountByCategory(category){
+        const count = await Placemark.countDocuments({ category: category});
+        return count;
     },
 
     async getPlacemarkById(id) {

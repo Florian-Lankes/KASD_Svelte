@@ -12,7 +12,7 @@
 
     let placemarkList = [];
 
-    let categories = ["soccer field", "world wonder", "river", "bridge", "Town", "City", "Forest", "Landscape feature", "National monument<", "Walking Trail", "Tree", "Entertainment Venue", "Island", "Archaeological Feature", "Others"];
+    let categories = ["Soccer field", "World wonder", "River", "Bridge", "Town", "City", "Forest", "Landscape feature", "National monument", "Walking Trail", "Tree", "Entertainment Venue", "Island", "Archaeological Feature", "Others"];
     let selectedCategory = "";
     let message = "";
 
