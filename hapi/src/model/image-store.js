@@ -1,6 +1,7 @@
 import * as cloudinary from "cloudinary";
 import { writeFileSync } from "fs";
 import dotenv from "dotenv";
+import {db} from "./db.js";
 
 dotenv.config();
 
@@ -16,6 +17,14 @@ export const imageStore = {
     getAllImages: async function() {
         const result = await cloudinary.v2.api.resources();
         return result.resources;
+    },
+
+    getPlacemarkImages: async function(placemarkId) {
+        // dont know api call for specific pictures
+        // but dont need to because we already have the urls in the database
+        const placemark = await db.placemarkStore.getPlacemarkById(placemarkId);
+        const result = placemark.image.map((url) => ({secure_url: url}));
+        return result;
     },
 
     uploadImage: async function(imagefile) {

@@ -27,7 +27,7 @@
                 name: name,
                 category: selectedCategory,
                 description: description,
-                image: "",
+                image: [],
                 location: {latitude: latitude, longitude: longitude},
             };
             console.log(placemark);

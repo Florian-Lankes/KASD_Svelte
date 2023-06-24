@@ -10,8 +10,6 @@
         placemarks = await KASDMapsService.getAllPlacemarks();
         const loggedInUserId = KASDMapsService.getUserId();
         groups = await KASDMapsService.getUserGroups(loggedInUserId);
-        console.log("groups: ");
-        console.log(groups);
         if(propValue != undefined) {
             placemarks = propValue.group.placemarks;
         }
@@ -21,8 +19,6 @@
     let placemarkId
     async function addToGroup() {
         // add placemarkId to group._id
-        console.log(group._id);
-        console.log(placemarkId);
         const response = await KASDMapsService.addPlacemarkToGroup(placemarkId, group._id);
 
     }

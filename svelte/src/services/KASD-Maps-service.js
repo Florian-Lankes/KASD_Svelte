@@ -5,6 +5,8 @@ import { user, latestPlacemark } from "../stores";
 export const KASDMapsService = {
     baseUrl: "http://localhost:3000",
 
+    // still a problem (if on site user changes something you need to reopen the site for the change to take effect.
+    // Happens inside analytics and picture gallery.
 
     async login(email, password) {
         try {
@@ -85,6 +87,16 @@ export const KASDMapsService = {
             return [];
         }
     },
+    async getPlacemarkImages(placemarkId) {
+        try {
+            // let response = [];
+            console.log(placemarkId);
+            const response = await axios.get(`${this.baseUrl}/api/placemark/${placemarkId}/images`);
+            return response.data; // .data
+        } catch(error){
+            return [];
+        }
+    },
 
     async getAnalytics() {
         try {
@@ -111,12 +123,9 @@ export const KASDMapsService = {
     async addImageToPlacemark(imageURL, placemarkId){
         try {
             let response;
-            console.log("KASDMApsService");
-            console.log(imageURL);
             const image = {
                 url: imageURL,
-            }
-            console.log(placemarkId);
+            };
             response = await axios.post(`${this.baseUrl}/api/placemark/${placemarkId}/uploadImage`, image);
             return response.status === 201;
         } catch(error){
@@ -128,6 +137,16 @@ export const KASDMapsService = {
         try {
             const response = await axios.get(`${this.baseUrl}/api/addPlacemark/${placemarkId}/group/${groupId}`);
             return response;
+        } catch(error){
+            return false;
+        }
+    },
+
+    async editPlacemark(placemarkId, updatedPlacemark){
+        try {
+            let response;
+            response = await axios.post(`${this.baseUrl}/api/placemark/${placemarkId}/update`, updatedPlacemark);
+            return response.status === 201;
         } catch(error){
             return false;
         }

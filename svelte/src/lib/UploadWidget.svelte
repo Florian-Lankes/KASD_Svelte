@@ -27,4 +27,4 @@
     }
 </script>
 
-<button on:click|preventDefault={handleClick}>Upload</button>
+<button on:click|preventDefault={handleClick}>Upload Image</button>

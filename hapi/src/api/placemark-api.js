@@ -59,7 +59,6 @@ export const placemarkApi = {
         handler: async function (request, h) {
             try {
                 const placemark = request.payload;
-
                 // console.log(placemark);
                 const userId = request.auth.credentials._id;
                 const newPlacemark = await db.placemarkStore.addPlacemark(userId, placemark);
@@ -121,14 +120,25 @@ export const placemarkApi = {
         auth: false,
         handler: async function (request, h) {
             try {
-                console.log("inside function image");
                 const image = request.payload; // need from svelte
                 const placemark = await db.placemarkStore.getPlacemarkById(request.params.id); // id from api route
-                console.log(placemark);
-                console.log(image.url);
                 // const url = await imageStore.uploadImage(imageURL); already done in svelte
                 const response = await db.placemarkStore.imagePush(placemark, image.url);
                 return image.url;
+            } catch (err) {
+                return Boom.serverUnavailable("Database Error");
+            }
+        },
+    },
+
+    updatePlacemark: {
+        auth: false,
+        handler: async function (request, h) {
+            try {
+                const updatedPlacemark = request.payload;
+                const placemark = await db.placemarkStore.getPlacemarkById(request.params.id) // id from api route
+                await db.placemarkStore.updatePlacemark(placemark, updatedPlacemark);
+                return true;
             } catch (err) {
                 return Boom.serverUnavailable("Database Error");
             }
@@ -153,6 +163,20 @@ export const placemarkApi = {
         handler: async function (request, h) {
             try {
                 const images= imageStore.getAllImages();
+                return images;
+            } catch (err) {
+                return Boom.serverUnavailable("Database Error");
+            }
+        },
+    },
+
+    placemarkImages: {
+        auth: false,
+        handler: async function (request, h) {
+            try {
+                const placemarkId = request.params.id;
+                const images= await imageStore.getPlacemarkImages(placemarkId);
+                console.log(images);
                 return images;
             } catch (err) {
                 return Boom.serverUnavailable("Database Error");
