@@ -2,6 +2,7 @@ import { Placemark } from "./placemark.js";
 import { groupMongoStore } from "./group-mongo-store.js";
 import { userMongoStore } from "./user-mongo-store.js";
 import {User} from "./user.js";
+import {db} from "../db.js";
 
 export const placemarkMongoStore = {
 
@@ -18,6 +19,12 @@ export const placemarkMongoStore = {
     async getPlacemarksCountByCategory(category){
         const count = await Placemark.countDocuments({ category: category});
         return count;
+    },
+
+    async imagePush(placemark2, url){
+        const placemark = await db.placemarkStore.getPlacemarkById(placemark2._id);
+        placemark.image.push(url);
+        await this.updatePlacemarkImage(placemark);
     },
 
     async getPlacemarkById(id) {

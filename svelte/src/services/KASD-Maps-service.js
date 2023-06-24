@@ -108,11 +108,25 @@ export const KASDMapsService = {
       }
     },
 
+    async addImageToPlacemark(imageURL, placemarkId){
+        try {
+            let response;
+            console.log("KASDMApsService");
+            console.log(imageURL);
+            const image = {
+                url: imageURL,
+            }
+            console.log(placemarkId);
+            response = await axios.post(`${this.baseUrl}/api/placemark/${placemarkId}/uploadImage`, image);
+            return response.status === 201;
+        } catch(error){
+            return false;
+        }
+    },
+
     async addPlacemarkToGroup(placemarkId, groupId){
         try {
-            console.log("t");
             const response = await axios.get(`${this.baseUrl}/api/addPlacemark/${placemarkId}/group/${groupId}`);
-            console.log("tt");
             return response;
         } catch(error){
             return false;

@@ -11,3 +11,5 @@ export const user = writable({
 export const latestPlacemark = writable(null);
 
 export const latestChartType = writable(0);
+
+export const secureURL = writable(null);

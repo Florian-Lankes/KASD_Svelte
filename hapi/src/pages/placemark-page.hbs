@@ -8,7 +8,9 @@
     <div class="card-image">
         <p>Image:       </p>
         <figure class="image is-128x128">
-            <img src={{placemark.image}}>
+            {{#each placemark.image}}
+                <img src={{this}}>
+            {{/each}}
         </figure>
     </div>
     <p>Latitude:    {{placemark.location.latitude}} Longitude: {{placemark.location.longitude}}</p>
@@ -20,7 +22,7 @@
             <div class="columns">
                 <form action="/placemark/{{placemark._id}}/uploadimage" method="POST" enctype="multipart/form-data">
                     <div id="file-select" class="file has-name is-fullwidth">
-                        <label class="file-label"> <input class="file-input" name="imagefile" type="file" name="resume" accept="image/png, image/jpeg">
+                        <label class="file-label"> <input class="file-input" name="imagefile" type="file" accept="image/png, image/jpeg">
                             <span class="file-cta">
             <span class="file-icon">
               <i class="fas fa-upload"></i>
@@ -69,10 +71,21 @@
                     <div class="control">
                         <div class="select">
                             <select class="input" name="category">
-                                <option>Select category</option>
-                                <option>soccer field</option>
-                                <option>world wonder</option>
-                                <option>bridge</option>
+                                <option>Soccer field</option>
+                                <option>World wonder</option>
+                                <option>River</option>
+                                <option>Bridge</option>
+                                <option>Town</option>
+                                <option>City</option>
+                                <option>Forest</option>
+                                <option>Landscape feature</option>
+                                <option>National monument</option>
+                                <option>Walking Trail</option>
+                                <option>Tree</option>
+                                <option>Entertainment Venue</option>
+                                <option>Island</option>
+                                <option>Archaeological Feature</option>
+                                <option>Others</option>
                             </select>
                         </div>
                     </div>
@@ -92,6 +105,8 @@
         if (fileInput.files.length > 0) {
             const fileName = document.querySelector(".file-name");
             fileName.textContent = fileInput.files[0].name;
+            console.log("fileName: ");
+            console.log(fileName.textContent);
         }
     };
 </script>

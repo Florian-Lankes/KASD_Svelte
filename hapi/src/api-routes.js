@@ -15,6 +15,7 @@ export const apiRoutes = [
     { method: "DELETE", path: "/api/placemark/{id}", config: placemarkApi.deleteOne },
     { method: "GET", path: "/api/placemark/{id}", config: placemarkApi.findOne },
     { method: "GET", path: "/api/allImages", config: placemarkApi.allImages },
+    { method: "POST", path: "/api/placemark/{id}/uploadImage", config: placemarkApi.addImage },
 
     // group.create id in route
     { method: "GET", path: "/api/groups", config: groupApi.find },

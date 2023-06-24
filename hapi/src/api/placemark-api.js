@@ -117,6 +117,37 @@ export const placemarkApi = {
         description: "Delete all PlacemarkApi",
     },
 
+    addImage: {
+        auth: false,
+        handler: async function (request, h) {
+            try {
+                console.log("inside function image");
+                const image = request.payload; // need from svelte
+                const placemark = await db.placemarkStore.getPlacemarkById(request.params.id); // id from api route
+                console.log(placemark);
+                console.log(image.url);
+                // const url = await imageStore.uploadImage(imageURL); already done in svelte
+                const response = await db.placemarkStore.imagePush(placemark, image.url);
+                return image.url;
+            } catch (err) {
+                return Boom.serverUnavailable("Database Error");
+            }
+        },
+    },
+
+    deleteImage: {
+        auth: false,
+        handler: async function (request, h) {
+          try {
+              // implement delete not finished
+              const placemark = await db.placemarkStore.getPlacemarkById(request.params.id); // id from api route
+              const imageIndex = request.payload.imageIndex;
+          }  catch (err) {
+              return Boom.serverUnavailable("Database Error");
+          }
+        },
+    },
+
     allImages: {
         auth: false,
         handler: async function (request, h) {

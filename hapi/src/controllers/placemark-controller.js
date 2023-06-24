@@ -50,7 +50,7 @@ export const placemarkController = {
                 if (placemark.createdById.equals(loggedInUser._id) || loggedInUser.isAdmin) {
                     if (Object.keys(file).length > 0) {
                         const url = await imageStore.uploadImage(request.payload.imagefile);
-                        placemark.image = url;
+                        placemark.image.push(url); // changed
                         await db.placemarkStore.updatePlacemarkImage(placemark);
                     }
                 }
@@ -67,7 +67,7 @@ export const placemarkController = {
             parse: true,
         },
     },
-
+    // discontinued for now
     deleteImage: {
         handler: async function (request, h) {
             try {
