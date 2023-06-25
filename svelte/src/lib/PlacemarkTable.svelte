@@ -1,7 +1,7 @@
 <script>
     import {onMount} from "svelte";
     import {KASDMapsService} from "../services/KASD-Maps-service.js";
-    import {latestRoute} from "../stores.js";
+    import {latestRoute} from "../stores.ts";
     import {goto} from "$app/navigation";
     let placemarks = [];
     let groups = [];

@@ -2,7 +2,7 @@
 
     import {onMount} from "svelte";
     import {goto} from "$app/navigation";
-    import {latestRoute, latestChartType} from "../../stores.js";
+    import {latestRoute, latestChartType} from "../../stores.ts";
 
     let route;
     latestRoute.subscribe((value) => {
@@ -10,7 +10,6 @@
     });
 
     onMount(async () => {
-        console.log(route);
         await goto(route);
     });
 </script>

@@ -3,7 +3,7 @@
 
     import { onMount } from "svelte";
     import { KASDMapsService } from "../services/KASD-Maps-service.js";
-    import { user } from "../stores.js"
+    import { user } from "../stores.ts"
 
     let name = "";
     let description = "";

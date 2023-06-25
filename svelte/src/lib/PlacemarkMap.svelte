@@ -3,7 +3,7 @@
     import { LeafletMap } from "../services/leaflet-map";
     import { onMount } from "svelte";
     import {KASDMapsService} from "../services/KASD-Maps-service.js";
-    import { latestPlacemark } from "../stores.js";
+    import { latestPlacemark } from "../stores.ts";
 
     const mapConfig = {
         location: {latitude: 49.020895276653654, longitude: 12.1018256612773},

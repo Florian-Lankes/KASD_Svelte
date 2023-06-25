@@ -2,7 +2,7 @@
     import Header from '$lib/Header.svelte';
     import MainNavigator from '$lib/MainNavigator.svelte';
     import ChartTypeForm from "$lib/ChartTypeForm.svelte";
-    import {latestChartType} from "../../stores.js";
+    import {latestChartType} from "../../stores.ts";
     import UserChart from "$lib/UserChart.svelte";
 
 

@@ -1,5 +1,5 @@
 <script>
-    import {latestChartType, latestRoute} from "../stores.js";
+    import {latestChartType, latestRoute} from "../stores.ts";
     import {goto} from "$app/navigation";
 
 

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import axios from "axios";
-import { user, latestPlacemark } from "../stores";
+import { user, latestPlacemark } from "../stores.ts";
 
 export const KASDMapsService = {
     baseUrl: "http://localhost:3000",

@@ -1,6 +1,6 @@
 <script>
     import { onMount} from "svelte";
-    // import { secureURL } from "../stores.js";
+    // import { secureURL } from "../stores.ts";
     import {KASDMapsService} from "../services/KASD-Maps-service.js";
     import {invalidateAll} from "$app/navigation";
 

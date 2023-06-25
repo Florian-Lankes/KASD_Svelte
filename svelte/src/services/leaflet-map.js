@@ -2,6 +2,8 @@
 // @ts-nocheck
 import * as L from "leaflet";
 
+const apiKey = import.meta.env.VITE_openweatherapi;
+
 export class LeafletMap {
     imap = {};
     control = {};
@@ -22,6 +24,12 @@ export class LeafletMap {
         Topographic: L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
             maxZoom: 17,
             attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+        }),
+        Temperature: L.tileLayer(`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${apiKey}`, {
+            maxZoom: 17
+        }),
+        Rain: L.tileLayer(`https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${apiKey}`, {
+            maxZoom: 17
         }),
     };
 

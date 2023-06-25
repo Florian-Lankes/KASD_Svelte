@@ -4,7 +4,7 @@
 
 <div class="columns is-vcentered">
     <div class="column is-half">
-        <TitleBar title={'KASD Maps Service'} subTitle={'Sign up or Log in'} />
+        <TitleBar title={'KASD Maps Service'} subTitle={''} />
     </div>
     <div class="column is-half">
         <slot />
