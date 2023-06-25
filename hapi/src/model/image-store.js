@@ -33,6 +33,12 @@ export const imageStore = {
         return response.url;
     },
 
+    // not working yet
+    deleteImageById: async function(id) {
+        await cloudinary.v2.uploader.destroy(id, {});
+    },
+
+    // doesn't work but don't need to fix because it was just for testing in hapi
     deleteImage: async function(img) {
         await cloudinary.v2.uploader.destroy(img, {});
     }

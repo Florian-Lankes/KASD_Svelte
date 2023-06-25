@@ -150,8 +150,13 @@ export const placemarkApi = {
         handler: async function (request, h) {
           try {
               // implement delete not finished
-              const placemark = await db.placemarkStore.getPlacemarkById(request.params.id); // id from api route
-              const imageIndex = request.payload.imageIndex;
+              const imageId = request.params.imageId;
+              const delId = imageId.split(".")[0];
+              const publicId = request.params.publicId;
+              const url = `https://res.cloudinary.com/dp5ce5pmu/image/upload/${  publicId  }/${  imageId}`;
+              await imageStore.deleteImageById(delId);
+              await db.placemarkStore.deleteImageByUrl(url);
+              return imageId;
           }  catch (err) {
               return Boom.serverUnavailable("Database Error");
           }
@@ -176,7 +181,6 @@ export const placemarkApi = {
             try {
                 const placemarkId = request.params.id;
                 const images= await imageStore.getPlacemarkImages(placemarkId);
-                console.log(images);
                 return images;
             } catch (err) {
                 return Boom.serverUnavailable("Database Error");

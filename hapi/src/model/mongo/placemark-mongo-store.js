@@ -82,7 +82,7 @@ export const placemarkMongoStore = {
         await Placemark.deleteMany({});
     },
 
-    async updatePlacemark(placemark, updatedPlacemark){
+    async updatePlacemark(placemark, updatedPlacemark) {
         //need to use query again because placemark is a lean object which save cant be called upon
         const placemarkMongoDB = await Placemark.findOne({ _id: placemark._id });
         placemarkMongoDB.name = updatedPlacemark.name;
@@ -91,6 +91,14 @@ export const placemarkMongoStore = {
         placemarkMongoDB.location.longitude = updatedPlacemark.location.longitude;
         placemarkMongoDB.category = updatedPlacemark.category;
         await placemarkMongoDB.save();
+    },
+
+    // doesn't work yet. Need to remove image with id imageId from url arry !!not the same url != imageId
+    async deleteImageByUrl(url) {
+        await Placemark.updateMany(
+            { },
+            { $pull: { image: url } }
+        )
     },
 
 

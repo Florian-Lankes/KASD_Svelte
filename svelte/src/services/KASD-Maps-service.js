@@ -90,7 +90,6 @@ export const KASDMapsService = {
     async getPlacemarkImages(placemarkId) {
         try {
             // let response = [];
-            console.log(placemarkId);
             const response = await axios.get(`${this.baseUrl}/api/placemark/${placemarkId}/images`);
             return response.data; // .data
         } catch(error){
@@ -189,6 +188,18 @@ export const KASDMapsService = {
                 userId: savedUser.userId
             });
             axios.defaults.headers.common["Authorization"] = "Bearer " + savedUser.token;
+        }
+    },
+
+    async deleteImage(imageURL) {
+        try{
+            let temp = imageURL.split("/");
+            const publicId = temp[temp.length-2]; // publicId is the id from cloudinary for specific picture (example: v1687600501)
+            const imageId = temp[temp.length-1]; // imageId is the name of the image in cloudinary (example: vsveiage4nyinhrb1wkt)
+            const response = await axios.delete(`${this.baseUrl}/api/image/${imageId}/${publicId}/delete`);
+            return response;
+        } catch(error){
+            return error;
         }
     }
 };

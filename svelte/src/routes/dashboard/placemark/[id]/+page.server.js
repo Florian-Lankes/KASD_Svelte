@@ -4,7 +4,6 @@ import { KASDMapsService } from "../../../../services/KASD-Maps-service.js";
 export const load = async ({ params }) => {
     const placemark2 = await KASDMapsService.getPlacemark(params.id);
     const images = await KASDMapsService.getPlacemarkImages(placemark2._id); //test
-    console.log(images);
     return {
         placemark: placemark2,
         images: images
