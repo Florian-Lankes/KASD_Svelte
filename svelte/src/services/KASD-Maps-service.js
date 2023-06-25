@@ -201,5 +201,14 @@ export const KASDMapsService = {
         } catch(error){
             return error;
         }
+    },
+
+    async deletePlacemark(placemarkId) {
+        try{
+            const response = await axios.delete(`${this.baseUrl}/api/placemark/${placemarkId}`);
+            return response.status === 204;
+        } catch(error){
+            return error;
+        }
     }
 };

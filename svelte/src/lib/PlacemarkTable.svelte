@@ -1,6 +1,8 @@
 <script>
     import {onMount} from "svelte";
     import {KASDMapsService} from "../services/KASD-Maps-service.js";
+    import {latestRoute} from "../stores.js";
+    import {goto} from "$app/navigation";
     let placemarks = [];
     let groups = [];
 
@@ -20,6 +22,17 @@
     async function addToGroup() {
         // add placemarkId to group._id
         const response = await KASDMapsService.addPlacemarkToGroup(placemarkId, group._id);
+
+    }
+
+    async function deletePlacemark(placemarkId) {
+        // add placemarkId to group._id
+        const response = await KASDMapsService.deletePlacemark(placemarkId);
+        if(response){
+            const route = "/dashboard";
+            latestRoute.update(() => route);
+            await goto("/reload");
+        }
 
     }
 </script>
@@ -52,6 +65,11 @@
                     <a href="/dashboard/placemark/{placemark._id}" class="button">
                         <i class="fas fa-folder-open"></i>
                     </a>
+                </td>
+                <td>
+                    <button on:click={() => deletePlacemark(placemark._id)}>
+                        <i class="fas fa-trash"></i>
+                    </button>
                 </td>
                 <td>
                     <form on:click={addToGroup}>

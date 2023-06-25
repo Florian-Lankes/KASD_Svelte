@@ -51,10 +51,7 @@ export class LeafletMap {
     }
 
     showLayerControl(bool) {
-        console.log("bool: ");
-        console.log(bool);
         if(bool){
-            console.log("inside");
             this.control = L.control.layers(this.baseLayers, this.overlays).addTo(this.imap);
         };
     }

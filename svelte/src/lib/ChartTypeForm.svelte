@@ -1,5 +1,5 @@
 <script>
-    import { latestChartType } from "../stores.js";
+    import {latestChartType, latestRoute} from "../stores.js";
     import {goto} from "$app/navigation";
 
 
@@ -9,7 +9,9 @@
     function getChartType() {
         // latestChartType.update(() => charttypes.indexOf(selectedchart));
         latestChartType.update(() => selectedchart);
-        goto("/analyticsCharts")
+        const route = "/analytics";
+        latestRoute.update(() => route);
+        goto("/reload");
     }
 
 </script>
