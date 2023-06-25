@@ -1,12 +1,15 @@
 <script>
     import { latestChartType } from "../stores.js";
-    import { invalidateAll } from "$app/navigation";
+    import {goto} from "$app/navigation";
 
 
     let charttypes = ["bar", "line", "pie"];
+
     let selectedchart = "";
     function getChartType() {
-        latestChartType.update(() => charttypes.indexOf(selectedchart));
+        // latestChartType.update(() => charttypes.indexOf(selectedchart));
+        latestChartType.update(() => selectedchart);
+        goto("/analyticsCharts")
     }
 
 </script>

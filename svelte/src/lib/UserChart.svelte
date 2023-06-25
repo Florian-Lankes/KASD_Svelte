@@ -2,9 +2,6 @@
     import Chart from "svelte-frappe-charts";
     import { onMount, afterUpdate } from "svelte";
     import { KASDMapsService } from "../services/KASD-Maps-service.js";
-    import {latestChartType, latestPlacemark} from "../stores.js";
-    import ChartTypeForm from "$lib/ChartTypeForm.svelte";
-    import {invalidateAll} from "$app/navigation";
 
     let analytics = [];
     onMount( async () => {
@@ -47,24 +44,21 @@
             }
         ]
     };
-    let charttypes = ["bar", "line", "pie"];
-    let latestChartTypeValue;
-    latestChartType.subscribe((value) => {
-        latestChartTypeValue = value;
-    });
+
+     export let charttype;
 
 
 </script>
 <div>
     <div class="column box m-4">
-        <h1 class="title is-4">Users to date</h1>
-        <Chart data={data} type={charttypes[latestChartTypeValue]}  />
+        <h1 class="title is-4">Users to date | Placemarks to date</h1>
+        <Chart data={data} type={charttype}  />
     </div>
     <div class="column box m-4">
         <h1 class="title is-4">Placemarks Types to date</h1>
-        <Chart data={data2} type={charttypes[latestChartTypeValue]} />
+        <Chart data={data2} type={charttype} />
     </div>
 </div>
-<ChartTypeForm />
+
 
 
