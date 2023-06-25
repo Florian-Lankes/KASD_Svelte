@@ -10,13 +10,16 @@
         zoom: 8,
         minZoom: 1
     };
+    export let layerControl; // need to use
+    export let activeLayer="";
+    export let mapName="";
 
     let map;
     onMount(async () => {
-        map = new LeafletMap("placemark-map", mapConfig);
+        map = new LeafletMap(mapName, mapConfig, activeLayer);
         map.showZoomControl();
-        map.addLayerGroup('Placemarks');
-        map.showLayerControl();
+        map.addLayerGroup("Placemarks");
+        map.showLayerControl(layerControl);
         const placemarks = await KASDMapsService.getAllPlacemarks();
         placemarks.forEach((placemark) => {
             map.addMarker({ latitude: placemark.location.latitude, longitude: placemark.location.longitude }, placemark.name, "Placemarks");
@@ -31,4 +34,4 @@
 
 </script>
 
-<div class="box" id="placemark-map" style="height:75vh" />
+<div class="box" id={mapName} style="height:75vh" />

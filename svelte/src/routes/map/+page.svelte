@@ -14,4 +14,14 @@
     <MainNavigator />
 </Header>
 
-<PlacemarkMap />
+<div class="columns">
+    <div class="column">
+        <PlacemarkMap mapName="placemark-map1" layerControl={false} activeLayer= {false}/>
+    </div>
+    <div class="column">
+        <PlacemarkMap mapName="placemark-map2" layerControl={false} activeLayer= "Topographic"/>
+    </div>
+    <div class="column">
+        <PlacemarkMap mapName="placemark-map3" layerControl={false} activeLayer= "Satellite"/>
+    </div>
+</div>

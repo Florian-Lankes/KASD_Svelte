@@ -2,13 +2,13 @@
 
     import axios from "axios";
     import {KASDMapsService} from "../services/KASD-Maps-service.js";
+    import {invalidateAll} from "$app/navigation";
 
     export let passedImages
 
     async function deleteImage(url) {
-        console.log("clicked!");
-        console.log(url);
         await KASDMapsService.deleteImage(url);
+        invalidateAll();
     }
 </script>
 

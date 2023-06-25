@@ -2,6 +2,7 @@
     import Header from '$lib/Header.svelte';
     import MainNavigator from '$lib/MainNavigator.svelte';
     import UserChart from "$lib/UserChart.svelte";
+
 </script>
 
 <Header>

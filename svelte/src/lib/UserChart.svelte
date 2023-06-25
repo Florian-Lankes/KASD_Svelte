@@ -4,6 +4,7 @@
     import { KASDMapsService } from "../services/KASD-Maps-service.js";
     import {latestChartType, latestPlacemark} from "../stores.js";
     import ChartTypeForm from "$lib/ChartTypeForm.svelte";
+    import {invalidateAll} from "$app/navigation";
 
     let analytics = [];
     onMount( async () => {
@@ -28,6 +29,7 @@
         data2.datasets[0].values[14] = analytics.othersCount;
     });
 
+
     let data = {
         labels: ["Users", "Placemarks"],
         datasets: [
@@ -50,6 +52,7 @@
     latestChartType.subscribe((value) => {
         latestChartTypeValue = value;
     });
+
 
 </script>
 <div>

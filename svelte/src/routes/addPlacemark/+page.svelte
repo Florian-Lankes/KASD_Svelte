@@ -13,7 +13,7 @@
     <div class="column box has-text-centered columns">
 
         <div class="column has-text-centered">
-            <PlacemarkMap />
+            <PlacemarkMap mapName="placemark-map" layerControl={true} activeLayer= {false}/>
         </div>
         <div class="column box has-text-centered">
             <h1 class="title is-4">Add Placemark</h1>

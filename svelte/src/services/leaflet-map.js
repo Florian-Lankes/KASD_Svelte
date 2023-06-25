@@ -19,6 +19,10 @@ export class LeafletMap {
             attribution:
                 "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community",
         }),
+        Topographic: L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 17,
+            attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+        }),
     };
 
 
@@ -46,8 +50,13 @@ export class LeafletMap {
         this.imap.addLayer(this.overlays[title]);
     }
 
-    showLayerControl() {
-        this.control = L.control.layers(this.baseLayers, this.overlays).addTo(this.imap);
+    showLayerControl(bool) {
+        console.log("bool: ");
+        console.log(bool);
+        if(bool){
+            console.log("inside");
+            this.control = L.control.layers(this.baseLayers, this.overlays).addTo(this.imap);
+        };
     }
 
     showZoomControl(position = "topleft") {
