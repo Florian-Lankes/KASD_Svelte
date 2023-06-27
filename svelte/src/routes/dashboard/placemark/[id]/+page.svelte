@@ -14,9 +14,24 @@
 
     let placemark:Placemark;
 
+    const apiKey = import.meta.env.VITE_openweatherapi;
+    let conditions;
+
+
     onMount(async () => {
-        console.log(data.placemark._id);
         placemark = await KASDMapsService.getPlacemark(data.placemark._id);
+        const requestUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${placemark.location.latitude}&lon=${placemark.location.longitude}&units=metric&appid=${apiKey}`;
+
+        await fetch(requestUrl, {
+            mode: 'cors'
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                conditions = data;
+            });
+        console.log(conditions);
     });
 
 
@@ -67,6 +82,17 @@
             </div>
         </form>
     </div>
+    <div class="columns m-0">
+        <div class="column box">
+            <h1>Weather in {conditions?.name}: </h1>
+            <h2 class="is-size-1">{conditions?.main.temp}°C</h2>
+            <h3 class="is-size-3">Feels like {conditions?.main.feels_like}°C</h3>
+            <p>{conditions?.weather[0].description}</p>
+            <p>Humidity: {conditions?.main.humidity}%</p>
+        </div>
+    </div>
+
+
     <DisplayImages passedData={data}/>
 
 </div>
