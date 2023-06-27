@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import * as L from "leaflet";
+import type { Mapconf, Location } from "./types";
 
 const apiKey = import.meta.env.VITE_openweatherapi;
 
@@ -34,7 +35,7 @@ export class LeafletMap {
     };
 
 
-    constructor(id, descriptor, activeLayer = "") {
+    constructor(id: string, descriptor: Mapconf, activeLayer = "") {
         let defaultLayer = this.baseLayers.Terrain;
         if (activeLayer) {
             defaultLayer = this.baseLayers[activeLayer];
@@ -48,17 +49,17 @@ export class LeafletMap {
         });
     }
 
-    addLayer(title, layer) {
+    addLayer(title, layer) { // TODO ts
         this.overlays[title] = layer;
         this.imap.addLayer(layer);
     }
 
-    addLayerGroup(title) {
+    addLayerGroup(title: string) {
         this.overlays[title] = L.layerGroup([]);
         this.imap.addLayer(this.overlays[title]);
     }
 
-    showLayerControl(bool) {
+    showLayerControl(bool: boolean) {
         if(bool){
             this.control = L.control.layers(this.baseLayers, this.overlays).addTo(this.imap);
         };
@@ -72,20 +73,20 @@ export class LeafletMap {
             .addTo(this.imap);
     }
 
-    moveTo(zoom, location) {
+    moveTo(zoom, location: Location) { // TODO ts
         this.imap.setZoom(zoom);
         this.imap.panTo(new L.LatLng(location.latitude, location.longitude));
     }
 
-    zoomTo(location) {
+    zoomTo(location) { // TODO ts
         this.imap.setView(new L.LatLng(location.latitude, location.longitude), 8);
     }
 
-    addMarker(location, popupText = "", layerTitle = "default") {
+    addMarker(location:Location, popupText = "", layerTitle = "default") {
         let group = {};
-        let marker = L.marker([location.latitude, location.longitude]);
+        const marker = L.marker([location.latitude, location.longitude]);
         if (popupText) {
-            var popup = L.popup({ autoClose: false, closeOnClick: false });
+            const popup = L.popup({ autoClose: false, closeOnClick: false });
             popup.setContent(popupText);
             marker.bindPopup(popup);
         }
@@ -101,7 +102,7 @@ export class LeafletMap {
 
     invalidateSize() {
         this.imap.invalidateSize();
-        let hiddenMethodMap = this.imap;
+        const hiddenMethodMap = this.imap;
         hiddenMethodMap._onResize();
     }
 }

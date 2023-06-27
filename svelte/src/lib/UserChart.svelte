@@ -1,9 +1,27 @@
-<script>
+<script lang="ts">
     import Chart from "svelte-frappe-charts";
     import { onMount, afterUpdate } from "svelte";
-    import { KASDMapsService } from "../services/KASD-Maps-service.js";
+    import { KASDMapsService } from "../services/KASD-Maps-service.ts";
 
-    let analytics = [];
+    let analytics: object = {
+        userCount: 0,
+        placemarkCount: 0,
+        soccerFieldCount: 0,
+        worldWonderCount: 0,
+        riverCount: 0,
+        bridgeCount: 0,
+        townCount: 0,
+        cityCount: 0,
+        forestCount: 0,
+        landscapeFeatureCount: 0,
+        nationalMonumentCount: 0,
+        walkingTrailCount: 0,
+        treeCount: 0,
+        entertainmentVenueCount: 0,
+        islandCount: 0,
+        archaeologicalFeatureCount: 0,
+        othersCount: 0
+    };
     onMount( async () => {
         analytics = await KASDMapsService.getAnalytics();
         data.datasets[0].values[0] = analytics.userCount;
@@ -45,7 +63,7 @@
         ]
     };
 
-     export let charttype;
+     export let charttype; // TODO ts
 
 
 </script>

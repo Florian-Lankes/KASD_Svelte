@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import {latestChartType, latestRoute} from "../stores.ts";
     import {goto} from "$app/navigation";
 

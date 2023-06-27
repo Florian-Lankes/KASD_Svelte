@@ -15,10 +15,10 @@ export const apiRoutes = [
     { method: "DELETE", path: "/api/placemark/{id}", config: placemarkApi.deleteOne },
     { method: "GET", path: "/api/placemark/{id}", config: placemarkApi.findOne },
     { method: "GET", path: "/api/allImages", config: placemarkApi.allImages },
-    { method: "POST", path: "/api/placemark/{id}/uploadImage", config: placemarkApi.addImage },
+    { method: "POST", path: "/api/placemark/{id}/uploadImage", config: placemarkApi.uploadImage },
     { method: "POST", path: "/api/placemark/{id}/update", config: placemarkApi.updatePlacemark },
     { method: "GET", path: "/api/placemark/{id}/images", config: placemarkApi.placemarkImages },
-    { method: "DELETE", path: "/api/image/{imageId}/{publicId}/delete", config: placemarkApi.deleteImage },
+    { method: "DELETE", path: "/api/placemark/{id}/image/{imageId}/{publicId}/delete", config: placemarkApi.deleteImage },
 
     // group.create id in route
     { method: "GET", path: "/api/groups", config: groupApi.find },

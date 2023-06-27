@@ -1,5 +1,5 @@
-<script>
-    export let passedData;
+<script lang="ts">
+    export let passedData; // TODO ts
 </script>
 
 <form method="POST" action="/?editPlacemark">

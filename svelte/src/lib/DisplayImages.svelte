@@ -1,21 +1,23 @@
-<script>
+<script lang="ts">
 
     import axios from "axios";
-    import {KASDMapsService} from "../services/KASD-Maps-service.js";
+    import {KASDMapsService} from "../services/KASD-Maps-service.ts";
     import {invalidateAll} from "$app/navigation";
+    import {onMount} from "svelte";
 
-    export let passedImages
-
+    export let passedData // TODO ts
     async function deleteImage(url) {
-        await KASDMapsService.deleteImage(url);
+        await KASDMapsService.deleteImage(url, passedData.placemark._id);
         invalidateAll();
     }
 </script>
 
 <div class="box has-text-centered">
     <h1 class="title is-5" >Images</h1>
-    {#each passedImages.images as image}
+    {#each passedData.images as image}
         <img src={image.secure_url} class="m-2" alt="" width="500" height="600">
-        <button  class="button is-danger" on:click={() => deleteImage(image.secure_url)}><i class="fas fa-trash"></i></button>
+        {#if passedData.placemark != null}
+            <button  class="button is-danger" on:click={() => deleteImage(image.secure_url)}><i class="fas fa-trash"></i></button>
+        {/if}
     {/each}
 </div>

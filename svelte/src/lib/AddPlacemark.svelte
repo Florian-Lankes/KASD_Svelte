@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
     // @ts-nocheck
 
     import { onMount } from "svelte";
-    import { KASDMapsService } from "../services/KASD-Maps-service.js";
+    import { KASDMapsService } from "../services/KASD-Maps-service.ts";
     import { user } from "../stores.ts"
 
     let name = "";

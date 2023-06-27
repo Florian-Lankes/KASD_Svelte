@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
     import { goto } from "$app/navigation";
-    import { KASDMapsService } from "../services/KASD-Maps-service.js";
+    import { KASDMapsService } from "../services/KASD-Maps-service.ts";
 
     let firstname = "";
     let lastname = "";
@@ -11,7 +11,7 @@
     async function signup() {
         let success = await KASDMapsService.signup(firstname, lastname, email, password);
         if (success) {
-            goto("/");
+            await goto("/");
         } else {
             errorMessage = "Error Trying to sign up ";
         }

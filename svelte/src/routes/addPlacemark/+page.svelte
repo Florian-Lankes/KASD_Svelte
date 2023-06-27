@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import Header from '$lib/Header.svelte';
     import MainNavigator from '$lib/MainNavigator.svelte';
     import AddPlacemark from '$lib/AddPlacemark.svelte';

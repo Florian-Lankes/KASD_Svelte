@@ -1,11 +1,11 @@
-<script>
+<script lang="ts">
     import { onMount} from "svelte";
     // import { secureURL } from "../stores.ts";
-    import {KASDMapsService} from "../services/KASD-Maps-service.js";
+    import {KASDMapsService} from "../services/KASD-Maps-service.ts";
     import {invalidateAll} from "$app/navigation";
 
-    let widget;
-    export let passedData;
+    let widget; // TODO ts
+    export let passedData; // TODO ts
 
     onMount(async () => {
         if ('cloudinary' in window) {

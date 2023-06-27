@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
     import Header from '$lib/Header.svelte';
     import MainNavigator from '$lib/MainNavigator.svelte';
     import DisplayImages from "$lib/DisplayImages.svelte";
 
-    export let data;
+    export let data; // TODO ts
 
 </script>
 
@@ -11,4 +11,4 @@
     <MainNavigator />
 </Header>
 
-<DisplayImages passedImages={data}/>
+<DisplayImages passedData={data}/>

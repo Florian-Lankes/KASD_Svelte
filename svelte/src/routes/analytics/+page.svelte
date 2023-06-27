@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import Header from '$lib/Header.svelte';
     import MainNavigator from '$lib/MainNavigator.svelte';
     import ChartTypeForm from "$lib/ChartTypeForm.svelte";
@@ -6,7 +6,7 @@
     import UserChart from "$lib/UserChart.svelte";
 
 
-    let chartType;
+    let chartType:string;
     latestChartType.subscribe((value) => {
         chartType = value;
     });

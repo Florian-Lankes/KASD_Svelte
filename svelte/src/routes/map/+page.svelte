@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
     import { beforeUpdate } from "svelte";
     import Header from "$lib/Header.svelte";
     import MainNavigator from "$lib/MainNavigator.svelte";
     import PlacemarkMap from "$lib/PlacemarkMap.svelte";
-    import { KASDMapsService } from "../../services/KASD-Maps-service.js";
+    import { KASDMapsService } from "../../services/KASD-Maps-service.ts";
 
     beforeUpdate(() => {
         KASDMapsService.reload();

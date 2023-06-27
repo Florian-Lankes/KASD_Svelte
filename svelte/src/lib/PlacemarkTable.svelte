@@ -1,31 +1,31 @@
-<script>
+<script lang="ts">
     import {onMount} from "svelte";
-    import {KASDMapsService} from "../services/KASD-Maps-service.js";
+    import {KASDMapsService} from "../services/KASD-Maps-service.ts";
     import {latestRoute} from "../stores.ts";
     import {goto} from "$app/navigation";
     let placemarks = [];
     let groups = [];
 
-    export let propValue;
+    export let propValue; // TODO ts
 
     onMount(async () => {
         placemarks = await KASDMapsService.getAllPlacemarks();
-        const loggedInUserId = KASDMapsService.getUserId();
+        const loggedInUserId = await KASDMapsService.getUserId();
         groups = await KASDMapsService.getUserGroups(loggedInUserId);
         if(propValue != undefined) {
             placemarks = propValue.group.placemarks;
         }
     });
 
-    let group;
-    let placemarkId
+    let group; // TODO ts
+    let placemarkId:string;
     async function addToGroup() {
         // add placemarkId to group._id
         const response = await KASDMapsService.addPlacemarkToGroup(placemarkId, group._id);
 
     }
 
-    async function deletePlacemark(placemarkId) {
+    async function deletePlacemark(placemarkId:string) {
         // add placemarkId to group._id
         const response = await KASDMapsService.deletePlacemark(placemarkId);
         if(response){

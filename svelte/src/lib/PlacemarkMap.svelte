@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
     import "leaflet/dist/leaflet.css";
     import { LeafletMap } from "../services/leaflet-map";
     import { onMount } from "svelte";
-    import {KASDMapsService} from "../services/KASD-Maps-service.js";
+    import {KASDMapsService} from "../services/KASD-Maps-service.ts";
     import { latestPlacemark } from "../stores.ts";
 
     const mapConfig = {
@@ -10,9 +10,9 @@
         zoom: 8,
         minZoom: 1
     };
-    export let layerControl; // need to use
-    export let activeLayer="";
-    export let mapName="";
+    export let layerControl:boolean;
+    export let activeLayer = "";
+    export let mapName = "";
 
     let map;
     onMount(async () => {
@@ -26,7 +26,7 @@
         });
     });
 
-    latestPlacemark.subscribe((placemark) => {
+    latestPlacemark.subscribe((placemark) => { // TODO ts
         if (placemark && map) {
             map.addMarker({ latitude: placemark.location.latitude, longitude: placemark.location.longitude }, placemark.name, "Placemarks");
         }

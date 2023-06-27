@@ -116,18 +116,35 @@ export const placemarkApi = {
         description: "Delete all PlacemarkApi",
     },
 
-    addImage: {
-        auth: false,
+    uploadImage: {
+        auth: {
+            strategy: "jwt",
+        },
         handler: async function (request, h) {
             try {
-                const image = request.payload; // need from svelte
-                const placemark = await db.placemarkStore.getPlacemarkById(request.params.id); // id from api route
-                // const url = await imageStore.uploadImage(imageURL); already done in svelte
-                const response = await db.placemarkStore.imagePush(placemark, image.url);
-                return image.url;
+                const loggedInUser = request.auth.credentials;
+                const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
+                const file = Object.values(request.payload)[0];
+
+                if (placemark.createdById.equals(loggedInUser._id) || loggedInUser.isAdmin) {
+                    if (Object.keys(file).length > 0) {
+                        console.log("iii");
+                        const url = await imageStore.uploadImage(file);
+                        await db.placemarkStore.imagePush(placemark, url);
+                        return true;
+                    }
+                }
+                return false;
             } catch (err) {
-                return Boom.serverUnavailable("Database Error");
+                console.log(err);
+                return false;
             }
+        },
+        payload: {
+            multipart: true,
+            output: "data",
+            maxBytes: 209715200,
+            parse: true,
         },
     },
 
@@ -152,11 +169,12 @@ export const placemarkApi = {
               // implement delete not finished
               const imageId = request.params.imageId;
               const delId = imageId.split(".")[0];
+              const placemarkId = request.params.id;
               const publicId = request.params.publicId;
-              const url = `https://res.cloudinary.com/dp5ce5pmu/image/upload/${  publicId  }/${  imageId}`;
+              const url = `http://res.cloudinary.com/dp5ce5pmu/image/upload/${  publicId  }/${  imageId}`;
               await imageStore.deleteImageById(delId);
-              await db.placemarkStore.deleteImageByUrl(url);
-              return imageId;
+              await db.placemarkStore.deleteImageByUrl(url, placemarkId);
+              return {imageId: imageId};
           }  catch (err) {
               return Boom.serverUnavailable("Database Error");
           }

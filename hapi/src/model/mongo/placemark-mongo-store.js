@@ -94,11 +94,11 @@ export const placemarkMongoStore = {
     },
 
     // doesn't work yet. Need to remove image with id imageId from url arry !!not the same url != imageId
-    async deleteImageByUrl(url) {
-        await Placemark.updateMany(
-            { },
-            { $pull: { image: url } }
-        )
+    async deleteImageByUrl(url, placemarkId) {
+        const placemark = await Placemark.findOne({ _id: placemarkId });
+        const updatedImages = placemark.image.filter(e => e !== url);
+        placemark.image = updatedImages;
+        placemark.save();
     },
 
 
