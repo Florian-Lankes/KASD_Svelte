@@ -9,10 +9,8 @@ export const load = async ({ params }) => {
         images: images
     }
 };
-
-/** @type {import('./$types').Actions} */
+/*
 export const actions = {
-
     editPlacemark: async ({ cookies, request }) => {
         // edit the placemark
         const data = await request.formData();
@@ -28,3 +26,4 @@ export const actions = {
         return {success: true};
     },
 };
+*/

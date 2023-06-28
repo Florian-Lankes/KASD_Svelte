@@ -81,15 +81,18 @@ export const placemarkApi = {
         auth: {
             strategy: "jwt",
         },
-
         handler: async function (request, h) {
             try {
                 const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
                 if (!placemark) {
                     return Boom.notFound("No Placemark with this id");
                 }
-                await db.placemarkStore.deletePlacemarkById(placemark._id);
-                return h.response().code(204);
+                const loggedInUser = request.auth.credentials;
+                if(placemark.createdById.equals(loggedInUser._id) || loggedInUser.isAdmin){
+                    await db.placemarkStore.deletePlacemarkById(placemark._id);
+                    return h.response().code(204);
+                }
+                return h.response().code(401);
             } catch (err) {
                 return Boom.serverUnavailable("No Placemark with this id");
             }
@@ -148,13 +151,19 @@ export const placemarkApi = {
     },
 
     updatePlacemark: {
-        auth: false,
+        auth: {
+            strategy: "jwt",
+        },
         handler: async function (request, h) {
             try {
                 const updatedPlacemark = request.payload;
                 const placemark = await db.placemarkStore.getPlacemarkById(request.params.id) // id from api route
-                await db.placemarkStore.updatePlacemark(placemark, updatedPlacemark);
-                return true;
+                const loggedInUser = request.auth.credentials;
+                if (placemark.createdById.equals(loggedInUser._id) || loggedInUser.isAdmin) {
+                    await db.placemarkStore.updatePlacemark(placemark, updatedPlacemark);
+                    return true;
+                }
+                return false;
             } catch (err) {
                 return Boom.serverUnavailable("Database Error");
             }
@@ -162,7 +171,9 @@ export const placemarkApi = {
     },
 
     deleteImage: {
-        auth: false,
+        auth: {
+            strategy: "jwt",
+        },
         handler: async function (request, h) {
           try {
               // implement delete not finished

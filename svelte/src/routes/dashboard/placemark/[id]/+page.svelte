@@ -48,6 +48,7 @@
     }
 
     async function uploadImages() {
+        console.log("inside");
         await KASDMapsService.uploadImage(placemark._id, files);
         const route = "/dashboard/placemark/" + placemark._id;
         latestRoute.update(() => route);

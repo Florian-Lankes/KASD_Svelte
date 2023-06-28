@@ -123,7 +123,6 @@ export const groupApi = {
                 const group = request.payload;
                 const userId = request.auth.credentials._id;
                 const newGroup = await db.groupStore.addGroup(userId ,group);
-                console.log(newGroup);
                 if (newGroup) {
                     return h.response(newGroup).code(201);
                 }
@@ -180,13 +179,9 @@ export const groupApi = {
     },
 
     addPlacemarkToGroup: {
-        auth: false,
-        /*
         auth: {
             strategy: "jwt",
         },
-         */
-
         handler: async function (request, h) {
             try {
                 const placemarkId = request.params.placemarkId;
@@ -202,13 +197,9 @@ export const groupApi = {
     },
 
     deletePlacemarkFromGroup: {
-        auth: false,
-        /*
         auth: {
             strategy: "jwt",
         },
-         */
-
         handler: async function (request, h) {
             try {
                 const placemarkId = request.params.placemarkId;

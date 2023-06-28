@@ -112,7 +112,9 @@ export const userApi = {
     },
 
     getAnalytics: {
-        auth: false,
+        auth: {
+            strategy: "jwt",
+        },
         handler: async function (request, h) {
             try {
                 const userCount = await db.userStore.getUserCount();

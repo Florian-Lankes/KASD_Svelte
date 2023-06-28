@@ -54,6 +54,6 @@ export interface Location{
 }
 
 export interface PassedDataForImage{
-    placemark: Array<ReturnedPlacemark>;
+    placemark: ReturnedPlacemark;
     images: Array<{ secure_url: string }>;
 }
