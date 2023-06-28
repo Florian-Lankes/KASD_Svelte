@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { KASDMapsService } from "../../../../services/KASD-Maps-service.ts";
 /** @type {import('./$types').PageServerLoad} */
-export const load = async ({ params }) => { // TODO ts
+export const load = async ({ params }) => {
     const placemark2 = await KASDMapsService.getPlacemark(params.id);
     const images = await KASDMapsService.getPlacemarkImages(placemark2._id); //test
     return {
@@ -13,7 +13,7 @@ export const load = async ({ params }) => { // TODO ts
 /** @type {import('./$types').Actions} */
 export const actions = {
 
-    editPlacemark: async ({ cookies, request }) => { // TODO ts
+    editPlacemark: async ({ cookies, request }) => {
         // edit the placemark
         const data = await request.formData();
         const updatedPlacemark = {

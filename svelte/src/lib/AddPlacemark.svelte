@@ -4,13 +4,14 @@
     import { onMount } from "svelte";
     import { KASDMapsService } from "../services/KASD-Maps-service.ts";
     import { user } from "../stores.ts"
+    import type {ReturnedPlacemark} from "../services/types";
 
     let name = "";
     let description = "";
     let latitude = 0;
     let longitude = 0;
 
-    let placemarkList = [];
+    let placemarkList: Array<ReturnedPlacemark>;
 
     let categories = ["Soccer field", "World wonder", "River", "Bridge", "Town", "City", "Forest", "Landscape feature", "National monument", "Walking Trail", "Tree", "Entertainment Venue", "Island", "Archaeological Feature", "Others"];
     let selectedCategory = "";
@@ -30,7 +31,6 @@
                 image: [],
                 location: {latitude: latitude, longitude: longitude},
             };
-            console.log(placemark);
             const success = await KASDMapsService.addPlacemark(placemark);
             if (!success) {
                 message = "Couldn't add Placemark. Something went wrong";

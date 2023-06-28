@@ -1,7 +1,7 @@
 <script lang="ts">
     import {onMount} from "svelte";
     import {KASDMapsService} from "../services/KASD-Maps-service.ts";
-    let userGroups = []; // TODO ts
+    let userGroups = [];
     onMount(async () => {
         userGroups = await KASDMapsService.getUserGroups();
     });

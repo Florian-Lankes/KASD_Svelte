@@ -28,7 +28,7 @@ export const apiRoutes = [
     { method: "DELETE", path: "/api/groups", config: groupApi.deleteAll },
     { method: "DELETE", path: "/api/group/{id}", config: groupApi.deleteOne },
     { method: "GET", path: "/api/group/{id}", config: groupApi.findOne },
-    { method: "GET", path: "/api/groups/user/{id}", config: groupApi.findByUserId },
+    { method: "GET", path: "/api/groups/user", config: groupApi.findByUserId },
     { method: "GET", path: "/api/addPlacemark/{placemarkId}/group/{groupId}", config: groupApi.addPlacemarkToGroup },
     // { method: "GET", path: "/api/group/{id}", config: groupApi.findFullGroupById },
 

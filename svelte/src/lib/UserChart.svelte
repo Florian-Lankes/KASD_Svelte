@@ -1,6 +1,6 @@
 <script lang="ts">
     import Chart from "svelte-frappe-charts";
-    import { onMount, afterUpdate } from "svelte";
+    import { onMount } from "svelte";
     import { KASDMapsService } from "../services/KASD-Maps-service.ts";
 
     let analytics: object = {
@@ -63,7 +63,7 @@
         ]
     };
 
-     export let charttype; // TODO ts
+     export let charttype: string;
 
 
 </script>

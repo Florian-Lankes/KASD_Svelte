@@ -80,7 +80,7 @@ export const groupApi = {
         tags: ["api"],
         description: "Find all Groups Of UserId",
         notes: "Returns array Of groups",
-        validate: { params: { id: IdSpec }, failAction: validationError },
+        validate: { failAction: validationError },
         response: { schema: GroupArraySpec, failAction: validationError },
     },
 

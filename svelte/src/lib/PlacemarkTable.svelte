@@ -3,25 +3,32 @@
     import {KASDMapsService} from "../services/KASD-Maps-service.ts";
     import {latestRoute} from "../stores.ts";
     import {goto} from "$app/navigation";
+    import type {Group} from "../services/types";
     let placemarks = [];
     let groups = [];
-
-    export let propValue; // TODO ts
+    let title = "Placemarks:"
+    export let propValue: object;
+    export let titlePage: string;
 
     onMount(async () => {
         placemarks = await KASDMapsService.getAllPlacemarks();
-        const loggedInUserId = await KASDMapsService.getUserId();
-        groups = await KASDMapsService.getUserGroups(loggedInUserId);
+        groups = await KASDMapsService.getUserGroups();
         if(propValue != undefined) {
             placemarks = propValue.group.placemarks;
         }
+        if(titlePage != undefined){
+            title = titlePage;
+        }
+
     });
 
-    let group; // TODO ts
+    let group: Group;
     let placemarkId:string;
     async function addToGroup() {
-        // add placemarkId to group._id
-        const response = await KASDMapsService.addPlacemarkToGroup(placemarkId, group._id);
+        // group is null for standard value
+        if(group != null){
+            const response = await KASDMapsService.addPlacemarkToGroup(placemarkId, group._id);
+        }
 
     }
 
@@ -37,7 +44,7 @@
     }
 </script>
 <div class="column box has-text-centered m-4">
-    <h1 class="title is-5" >Placemarks: </h1>
+    <h1 class="title is-5" >{title} </h1>
     <table class="table is-fullwidth">
         <thead>
         <th>Name</th>

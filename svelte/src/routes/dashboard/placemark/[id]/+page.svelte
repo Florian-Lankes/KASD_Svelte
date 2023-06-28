@@ -6,13 +6,13 @@
     import {goto} from "$app/navigation";
     import {onMount} from "svelte";
     import {KASDMapsService} from "../../../../services/KASD-Maps-service";
-    import type {Placemark} from "../../../../services/types";
+    import type {PassedDataForImage, Placemark} from "../../../../services/types";
     import {latestRoute} from "../../../../stores";
 
-    export let data; // TODO ts
+    export let data: PassedDataForImage;
     // $: data = data;
 
-    let placemark:Placemark;
+    let placemark: Placemark;
 
     const apiKey = import.meta.env.VITE_openweatherapi;
     let conditions;

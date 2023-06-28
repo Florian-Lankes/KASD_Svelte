@@ -1,7 +1,7 @@
 // @ts-nocheck
 import axios from "axios";
 import { user, latestPlacemark } from "../stores.ts";
-import type {Placemark} from "./types";
+import type {Group, Placemark, ReturnedPlacemark} from "./types";
 
 export const KASDMapsService = {
     baseUrl: "http://localhost:3000",
@@ -69,7 +69,7 @@ export const KASDMapsService = {
         }
     },
 
-    async getAllPlacemarks() { // unknown typescript Promise
+    async getAllPlacemarks(): Promise<Array<ReturnedPlacemark>> {
         try {
             let response = [];
             response = await axios.get(`${this.baseUrl}/api/placemarks`);
@@ -81,34 +81,31 @@ export const KASDMapsService = {
 
     async getAllImages(): Promise<object[]> {
         try {
-            // let response = [];
             const response = await axios.get(`${this.baseUrl}/api/allImages`);
-            return response.data; // .data
+            return response.data;
         } catch(error){
             return [];
         }
     },
     async getPlacemarkImages(placemarkId: string): Promise<object[]> {
         try {
-            // let response = [];
             const response = await axios.get(`${this.baseUrl}/api/placemark/${placemarkId}/images`);
-            return response.data; // .data
-        } catch(error){
-            return [{}];
-        }
-    },
-
-    async getAnalytics(): Promise<object> {
-        try {
-            let response = [];
-            response = await axios.get(`${this.baseUrl}/api/analytics`);
-            return response.data; // .data
+            return response.data;
         } catch(error){
             return [];
         }
     },
 
-    async addPlacemark(placemark: object): Promise<boolean> {
+    async getAnalytics(): Promise<object> {
+        try {
+            const response = await axios.get(`${this.baseUrl}/api/analytics`);
+            return response.data;
+        } catch(error){
+            return [];
+        }
+    },
+
+    async addPlacemark(placemark: Placemark): Promise<boolean> {
         try {
             const response = await axios.post(`${this.baseUrl}/api/user/placemark`, placemark);
             latestPlacemark.set(placemark);
@@ -118,26 +115,13 @@ export const KASDMapsService = {
       }
     },
 
-    async addImageToPlacemark(imageURL: string, placemarkId: string): Promise<boolean> {
-        try {
-            const image = {
-                url: imageURL,
-            };
-            const id = placemarkId;
-            const response = await axios.post(`${this.baseUrl}/api/placemark/${id}/uploadImage`, image);
-            return response.status === 201;
-        } catch(error){
-            return false;
-        }
-    },
-
     async uploadImage(id: string, fileUpload: File[]): Promise<boolean> {
         try {
             console.log("inside");
             console.log(id);
             console.log(fileUpload);
             const response = await axios.post(`${this.baseUrl}/api/placemark/${id}/uploadImage`, fileUpload);
-            return response.data;
+            return response;
         } catch (error) {
             return false;
         }
@@ -152,7 +136,7 @@ export const KASDMapsService = {
         }
     },
 
-    async editPlacemark(placemarkId: string, updatedPlacemark: object): Promise<boolean> {
+    async editPlacemark(placemarkId: string, updatedPlacemark: Placemark): Promise<boolean> {
         try {
             const response = await axios.post(`${this.baseUrl}/api/placemark/${placemarkId}/update`, updatedPlacemark);
             return response.status === 201;
@@ -161,7 +145,7 @@ export const KASDMapsService = {
         }
     },
 
-    async getPlacemark(id: string): Promise<Placemark> {
+    async getPlacemark(id: string): Promise<ReturnedPlacemark> {
         try{
             const response = await axios.get(`${this.baseUrl}/api/placemark/${id}`);
             return response.data;
@@ -170,16 +154,16 @@ export const KASDMapsService = {
         }
     },
 
-    async getUserGroups(id: string): Promise<object[]> {
+    async getUserGroups() {
         try{
-            const response = await axios.get(`${this.baseUrl}/api/groups/user/${id}`);
+            const response = await axios.get(`${this.baseUrl}/api/groups/user`);
             return response.data; // .data
         } catch(error){
             return [];
         }
     },
 
-    async getGroupById(id: string): Promise<object> {
+    async getGroupById(id: string): Promise<Group> {
         try{
             const response = await axios.get(`${this.baseUrl}/api/group/${id}`);
             return response.data; // .data

@@ -1,11 +1,14 @@
 <script lang="ts">
-
-    import axios from "axios";
     import {KASDMapsService} from "../services/KASD-Maps-service.ts";
     import {invalidateAll} from "$app/navigation";
+    import type {PassedDataForImage} from "../services/types";
     import {onMount} from "svelte";
 
-    export let passedData // TODO ts
+    export let passedData: PassedDataForImage;
+
+    onMount(async () => {
+        console.log(passedData);
+    });
     async function deleteImage(url) {
         await KASDMapsService.deleteImage(url, passedData.placemark._id);
         invalidateAll();

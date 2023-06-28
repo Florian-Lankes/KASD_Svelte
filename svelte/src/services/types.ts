@@ -1,9 +1,18 @@
-export interface User {
+export interface LoggedInUser {
 
     email: string;
     token: string;
     userId: string;
 }
+
+export interface User{
+    firstName: string,
+    lastName: string,
+    username: string,
+    email: string,
+    password: string,
+    isAdmin: string,
+};
 
 export interface Mapconf {
     location: { latitude: number, longitude: number };
@@ -19,7 +28,22 @@ export interface Placemark{
         longitude: number;
     };
     category: string;
-    image: string[];
+    image: Array<string>;
+}
+
+export interface Group{
+    title:string;
+    userId: string;
+    arrayOfPlacemarkIds: Array<string>;
+    _id: string;
+}
+export interface ReturnedPlacemark extends Placemark {
+    createdById: string,
+    _id: string,
+}
+
+export interface Chart{
+    selected: string;
 }
 
 export interface Location{
@@ -27,4 +51,9 @@ export interface Location{
         latitude: number;
         longitude: number;
     };
+}
+
+export interface PassedDataForImage{
+    placemark: Array<ReturnedPlacemark>;
+    images: Array<{ secure_url: string }>;
 }

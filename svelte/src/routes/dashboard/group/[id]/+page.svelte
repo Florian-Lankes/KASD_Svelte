@@ -2,7 +2,7 @@
     import Header from "$lib/Header.svelte";
     import MainNavigator from "$lib/MainNavigator.svelte";
     import PlacemarkTable from "$lib/PlacemarkTable.svelte";
-    export let data; // TODO ts
+    export let data: object;
 
 </script>
 
@@ -10,8 +10,8 @@
     <MainNavigator/>
 </Header>
 
-<section class="section columns is-vcentered">
-    <PlacemarkTable propValue= {data}/>
+<section class="section">
+    <PlacemarkTable propValue= {data} titlePage = {data.group.title}/>
 </section>
 
 

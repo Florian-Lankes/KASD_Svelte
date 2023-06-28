@@ -128,7 +128,6 @@ export const placemarkApi = {
 
                 if (placemark.createdById.equals(loggedInUser._id) || loggedInUser.isAdmin) {
                     if (Object.keys(file).length > 0) {
-                        console.log("iii");
                         const url = await imageStore.uploadImage(file);
                         await db.placemarkStore.imagePush(placemark, url);
                         return true;

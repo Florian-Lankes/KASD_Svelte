@@ -6,7 +6,7 @@
     import UserChart from "$lib/UserChart.svelte";
 
 
-    let chartType:string;
+    let chartType: string;
     latestChartType.subscribe((value) => {
         chartType = value;
     });

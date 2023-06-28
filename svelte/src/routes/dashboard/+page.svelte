@@ -12,7 +12,7 @@
 
 <div class="columns">
     <div class="column box has-text-centered columns">
-        <PlacemarkTable propValue= {udef} />
+        <PlacemarkTable propValue= {udef} titlePage = {udef}/>
         <GroupTable />
     </div>
 </div>

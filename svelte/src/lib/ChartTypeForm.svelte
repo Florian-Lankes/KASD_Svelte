@@ -2,16 +2,15 @@
     import {latestChartType, latestRoute} from "../stores.ts";
     import {goto} from "$app/navigation";
 
-
-    let charttypes = ["bar", "line", "pie"];
-
+    let charttypes = ["bar", "line", "percentage", "pie"];
     let selectedchart = "";
     function getChartType() {
-        // latestChartType.update(() => charttypes.indexOf(selectedchart));
-        latestChartType.update(() => selectedchart);
-        const route = "/analytics";
-        latestRoute.update(() => route);
-        goto("/reload");
+        if(selectedchart != ""){
+            latestChartType.update(() => selectedchart);
+            const route = "/analytics";
+            latestRoute.update(() => route);
+            goto("/reload");
+        }
     }
 
 </script>

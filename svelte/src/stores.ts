@@ -1,5 +1,5 @@
 import {writable} from "svelte/store";
-import type { User } from "./services/types";
+import type {LoggedInUser} from "./services/types";
 
 /*
 export const user = writable({
@@ -9,7 +9,7 @@ export const user = writable({
     // isAdmin: "",
 });
  */
-export const user = writable<User>();
+export const user = writable<LoggedInUser>();
 
 
 export const latestPlacemark = writable(null);

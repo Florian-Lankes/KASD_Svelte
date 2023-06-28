@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { user } from "../stores.ts";
     export let title = "";
     export let subTitle = "";
 </script>

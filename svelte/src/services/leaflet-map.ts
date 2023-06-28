@@ -49,7 +49,7 @@ export class LeafletMap {
         });
     }
 
-    addLayer(title, layer) { // TODO ts
+    addLayer(title: string, layer: string) {
         this.overlays[title] = layer;
         this.imap.addLayer(layer);
     }
@@ -73,16 +73,16 @@ export class LeafletMap {
             .addTo(this.imap);
     }
 
-    moveTo(zoom, location: Location) { // TODO ts
+    moveTo(zoom, location: Location) {
         this.imap.setZoom(zoom);
         this.imap.panTo(new L.LatLng(location.latitude, location.longitude));
     }
 
-    zoomTo(location) { // TODO ts
+    zoomTo(location: Location) {
         this.imap.setView(new L.LatLng(location.latitude, location.longitude), 8);
     }
 
-    addMarker(location:Location, popupText = "", layerTitle = "default") {
+    addMarker(location: Location, popupText = "", layerTitle = "default") {
         let group = {};
         const marker = L.marker([location.latitude, location.longitude]);
         if (popupText) {
