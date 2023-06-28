@@ -44,11 +44,19 @@ const swaggerOptions = {
 // should I delete the Placemarks of the deleted User?
 // group api documentation response not working
 async function init() {
+    /*
     const server = Hapi.server({
         port: 3000,
         host: "localhost",
         routes: {cors: true}
     });
+     */
+
+    const server = Hapi.server({
+        port: process.env.PORT || 3000,
+        routes: {cors: true}
+    });
+
 
     await server.register(Inert);
     await server.register(Vision);
