@@ -32,7 +32,7 @@
 
     }
 
-    async function deletePlacemark(placemarkId:string) {
+    async function deletePlacemark(placemarkId: string) {
         // add placemarkId to group._id
         const response = await KASDMapsService.deletePlacemark(placemarkId);
         if(response){
@@ -40,7 +40,6 @@
             latestRoute.update(() => route);
             await goto("/reload");
         }
-
     }
 </script>
 <div class="column box has-text-centered m-4">

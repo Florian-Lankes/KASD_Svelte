@@ -204,5 +204,14 @@ export const KASDMapsService = {
         } catch(error){
             return false;
         }
+    },
+
+    async deleteGroup(groupId: string): Promise<boolean> {
+        try{
+            const response = await axios.delete(`${this.baseUrl}/api/group/${groupId}`);
+            return response.status === 204;
+        } catch(error){
+            return false;
+        }
     }
 };
