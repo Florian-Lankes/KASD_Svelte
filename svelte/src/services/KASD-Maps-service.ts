@@ -4,7 +4,7 @@ import { user, latestPlacemark } from "../stores.ts";
 import type {Group, Placemark, ReturnedPlacemark} from "./types";
 
 export const KASDMapsService = {
-    baseUrl: "http://localhost:3000",
+    baseUrl: "https://kasd-maps-service.onrender.com",
 
     // still a problem (if on site user changes something you need to reopen the site for the change to take effect.
     // Happens inside analytics and picture gallery.

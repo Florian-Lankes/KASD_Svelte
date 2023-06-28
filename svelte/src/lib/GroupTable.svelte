@@ -1,7 +1,7 @@
 <script lang="ts">
     import {onMount} from "svelte";
     import {KASDMapsService} from "../services/KASD-Maps-service.ts";
-    import {latestRoute} from "../stores";
+    import {latestRoute} from "../stores.ts";
     import {goto} from "$app/navigation";
     let userGroups = [];
     onMount(async () => {
@@ -11,7 +11,7 @@
     async function deleteGroup(GroupId: string) {
         // add placemarkId to group._id
         const response = await KASDMapsService.deleteGroup(GroupId);
-        if(response){
+        if(response) {
             const route = "/dashboard";
             latestRoute.update(() => route);
             await goto("/reload");

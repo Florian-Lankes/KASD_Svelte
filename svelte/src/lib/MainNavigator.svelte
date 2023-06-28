@@ -1,13 +1,4 @@
 <div class="box has-text-centered columns m-2">
-<<<<<<< HEAD
-    <a href="/dashboard" class="column is-4">
-        <i class="fas fa-hand-holding-usd fa-3x" style="color:rgb(153, 196, 74)" />
-    </a>
-    <a href="/addPlacemark" class="column is-4">
-        <i class="fas fa-th-list fa-3x" style="color:rgb(63, 122, 139)" />
-    </a>
-    <a href="/logout" class="column is04">
-=======
     <a href="/dashboard" class="column">
         <i class="fas fa-home fa-3x" style="color:rgb(153, 196, 74)" />
     </a>
@@ -28,7 +19,6 @@
         <i class="fas fa-images fa-3x" style="color:rgb(70, 156, 128)" />
     </a>
     <a href="/logout" class="column">
->>>>>>> dev
         <i class="fas fa-sign-out-alt fa-3x" style="color:rgb(156, 70, 128)" />
     </a>
 </div>

@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-<script>
-    import { goto } from "$app/navigation";
-    import { KASDMapsService } from "../services/KASD-Maps-service.js";
-=======
 <script lang="ts">
     import { goto } from "$app/navigation";
     import { KASDMapsService } from "../services/KASD-Maps-service.ts";
->>>>>>> dev
 
     let firstname = "";
     let lastname = "";
@@ -17,11 +11,7 @@
     async function signup() {
         let success = await KASDMapsService.signup(firstname, lastname, email, password);
         if (success) {
-<<<<<<< HEAD
-            goto("/");
-=======
             await goto("/");
->>>>>>> dev
         } else {
             errorMessage = "Error Trying to sign up ";
         }

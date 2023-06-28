@@ -7,7 +7,7 @@
     import {onMount} from "svelte";
     import {KASDMapsService} from "../../../../services/KASD-Maps-service";
     import type {PassedDataForImage, Placemark} from "../../../../services/types";
-    import {latestRoute} from "../../../../stores";
+    import {latestRoute} from "../../../../stores.ts";
 
     export let data: PassedDataForImage;
     // $: data = data;
