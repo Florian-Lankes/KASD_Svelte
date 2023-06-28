@@ -39,7 +39,7 @@
                 </td>
                 <td>
                     <button on:click={() => deleteGroup(group._id)}>
-                        <i class="fas fa-trash"></i>
+                        <i class="fas fa-trash fa-2x"></i>
                     </button>
                 </td>
             </tr>

@@ -30,6 +30,7 @@ export const apiRoutes = [
     { method: "GET", path: "/api/group/{id}", config: groupApi.findOne },
     { method: "GET", path: "/api/groups/user", config: groupApi.findByUserId },
     { method: "GET", path: "/api/addPlacemark/{placemarkId}/group/{groupId}", config: groupApi.addPlacemarkToGroup },
+    { method: "DELETE", path: "/api/group/{groupId}/placemark/{placemarkId}", config: groupApi.deletePlacemarkFromGroup },
     // { method: "GET", path: "/api/group/{id}", config: groupApi.findFullGroupById },
 
     { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },

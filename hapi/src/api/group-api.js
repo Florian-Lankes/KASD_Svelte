@@ -201,4 +201,26 @@ export const groupApi = {
         description: "Add Placemark To Group",
     },
 
-};
+    deletePlacemarkFromGroup: {
+        auth: false,
+        /*
+        auth: {
+            strategy: "jwt",
+        },
+         */
+
+        handler: async function (request, h) {
+            try {
+                const placemarkId = request.params.placemarkId;
+                const groupId = request.params.groupId;
+                await db.groupStore.deletePlacemarkWithIdFromGroupWithId(groupId, placemarkId);
+                return h.response().code(204);
+            } catch (err) {
+                return Boom.serverUnavailable("Database Error");
+            }
+        },
+        tags: ["api"],
+    },
+
+
+    };

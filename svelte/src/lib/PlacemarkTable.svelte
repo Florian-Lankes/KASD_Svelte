@@ -1,8 +1,8 @@
 <script lang="ts">
-    import {onMount} from "svelte";
-    import {KASDMapsService} from "../services/KASD-Maps-service.ts";
-    import {latestRoute} from "../stores.ts";
-    import {goto} from "$app/navigation";
+    import { onMount } from "svelte";
+    import { KASDMapsService } from "../services/KASD-Maps-service.ts";
+    import { latestRoute } from "../stores.ts";
+    import { goto } from "$app/navigation";
     import type {Group} from "../services/types";
     let placemarks = [];
     let groups = [];
@@ -41,6 +41,15 @@
             await goto("/reload");
         }
     }
+
+    async function deletePlacemarkFromGroup(groupId: string, placemarkId: string) {
+        const response = await KASDMapsService.deletePlacemarkFromGroup(groupId, placemarkId);
+        if(response){
+            const route = "/dashboard/group/" + groupId;
+            latestRoute.update(() => route);
+            await goto("/reload");
+        }
+    }
 </script>
 <div class="column box has-text-centered m-4">
     <h1 class="title is-5" >{title} </h1>
@@ -74,7 +83,7 @@
                 </td>
                 <td>
                     <button on:click={() => deletePlacemark(placemark._id)}>
-                        <i class="fas fa-trash"></i>
+                        <i class="fas fa-trash fa-2x"></i>
                     </button>
                 </td>
                 <td>
@@ -91,6 +100,13 @@
 
                     </form>
                 </td>
+                {#if propValue}
+                    <td>
+                        <button on:click={() => deletePlacemarkFromGroup(propValue.group._id, placemark._id)}>
+                            <i class="fas fa-folder-minus fa-2x"></i>
+                        </button>
+                    </td>
+                {/if}
             </tr>
         {/each}
         </tbody>

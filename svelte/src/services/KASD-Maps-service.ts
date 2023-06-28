@@ -55,20 +55,6 @@ export const KASDMapsService = {
         }
     },
 
-    async getUserId(): Promise<string> {
-        try {
-            let response = null;
-            const localUserCredentials = localStorage.localUser;
-            if (localUserCredentials) {
-                const savedUser = JSON.parse(localUserCredentials);
-                response = savedUser.userId;
-            }
-            return response;
-        } catch(error){
-            return "";
-        }
-    },
-
     async getAllPlacemarks(): Promise<Array<ReturnedPlacemark>> {
         try {
             let response = [];
@@ -218,6 +204,15 @@ export const KASDMapsService = {
     async deleteGroup(groupId: string): Promise<boolean> {
         try{
             const response = await axios.delete(`${this.baseUrl}/api/group/${groupId}`);
+            return response.status === 204;
+        } catch(error){
+            return false;
+        }
+    },
+
+    async deletePlacemarkFromGroup(groupId: string, placemarkId: string): Promise<boolean> {
+        try{
+            const response = await axios.delete(`${this.baseUrl}/api/group/${groupId}/placemark/${placemarkId}`);
             return response.status === 204;
         } catch(error){
             return false;
