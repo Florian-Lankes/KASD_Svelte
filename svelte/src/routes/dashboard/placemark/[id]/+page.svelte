@@ -5,7 +5,7 @@
     import DisplayImages from "$lib/DisplayImages.svelte";
     import {goto} from "$app/navigation";
     import {onMount} from "svelte";
-    import {KASDMapsService} from "../../../../services/KASD-Maps-service";
+    import {KASDMapsService} from "../../../../services/KASD-Maps-service.ts";
     import type {PassedDataForImage, Placemark} from "../../../../services/types";
     import {latestRoute} from "../../../../stores.ts";
 

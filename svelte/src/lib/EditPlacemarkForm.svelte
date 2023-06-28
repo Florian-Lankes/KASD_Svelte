@@ -1,6 +1,6 @@
 <script lang="ts">
     import type {Location, PassedDataForImage} from "../services/types";
-    import {KASDMapsService} from "../services/KASD-Maps-service";
+    import {KASDMapsService} from "../services/KASD-Maps-service.ts";
     import {onMount} from "svelte";
 
     export let passedData: PassedDataForImage;
