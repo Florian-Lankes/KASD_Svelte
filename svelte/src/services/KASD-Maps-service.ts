@@ -115,6 +115,15 @@ export const KASDMapsService = {
       }
     },
 
+    async addGroup(group: Group): Promise<boolean> {
+        try {
+            const response = await axios.post(`${this.baseUrl}/api/user/group`, group);
+            return response.status === 201;
+        } catch(error){
+            return false;
+        }
+    },
+
     async uploadImage(id: string, fileUpload: File[]): Promise<boolean> {
         try {
             console.log("inside");

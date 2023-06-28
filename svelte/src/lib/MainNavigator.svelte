@@ -5,6 +5,10 @@
     <a href="/addPlacemark" class="column">
         <i class="fas fa-th-list fa-3x" style="color:rgb(63, 122, 139)" />
     </a>
+    <a href="/addGroup" class="column">
+        <i class="fas fa-solid fa-folder-plus fa-3x" style="color:rgb(63, 40, 139)" />
+    </a>
+    <i class="fa-solid fa-location-plus"></i>
     <a href="/analytics" class="column">
         <i class="fas fa-chart-bar fa-3x" style="color:rgb(149, 93, 176)" />
     </a>
