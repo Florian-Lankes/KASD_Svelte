@@ -1,12 +1,30 @@
 import { Placemark } from "./placemark.js";
 import { groupMongoStore } from "./group-mongo-store.js";
 import { userMongoStore } from "./user-mongo-store.js";
+import {User} from "./user.js";
+import {db} from "../db.js";
 
 export const placemarkMongoStore = {
 
     async getAllPlacemarks() {
         const placemark = await Placemark.find().lean();
         return placemark;
+    },
+
+    async getPlacemarkCount(){
+        const count = await Placemark.countDocuments();
+        return count;
+    },
+
+    async getPlacemarksCountByCategory(category){
+        const count = await Placemark.countDocuments({ category: category});
+        return count;
+    },
+
+    async imagePush(placemark2, url){
+        const placemark = await db.placemarkStore.getPlacemarkById(placemark2._id);
+        placemark.image.push(url);
+        await this.updatePlacemarkImage(placemark);
     },
 
     async getPlacemarkById(id) {
@@ -64,7 +82,7 @@ export const placemarkMongoStore = {
         await Placemark.deleteMany({});
     },
 
-    async updatePlacemark(placemark, updatedPlacemark){
+    async updatePlacemark(placemark, updatedPlacemark) {
         //need to use query again because placemark is a lean object which save cant be called upon
         const placemarkMongoDB = await Placemark.findOne({ _id: placemark._id });
         placemarkMongoDB.name = updatedPlacemark.name;
@@ -73,6 +91,14 @@ export const placemarkMongoStore = {
         placemarkMongoDB.location.longitude = updatedPlacemark.location.longitude;
         placemarkMongoDB.category = updatedPlacemark.category;
         await placemarkMongoDB.save();
+    },
+
+    // doesn't work yet. Need to remove image with id imageId from url arry !!not the same url != imageId
+    async deleteImageByUrl(url, placemarkId) {
+        const placemark = await Placemark.findOne({ _id: placemarkId });
+        const updatedImages = placemark.image.filter(e => e !== url);
+        placemark.image = updatedImages;
+        placemark.save();
     },
 
 

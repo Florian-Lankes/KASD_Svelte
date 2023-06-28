@@ -33,14 +33,16 @@ export const groupApi = {
     },
 
     findOne: {
+        auth: false,
+        /*
         auth: {
             strategy: "jwt",
         },
-
+        */
         async handler(request) {
             try {
                 // use getGroupPlusPlacemarkInfoById if you want the placemarks not only by id array, but by object array
-                const group = await db.groupStore.getGroupById(request.params.id);
+                const group = await db.groupStore.getGroupPlusPlacemarkInfoById(request.params.id);
                 if (!group) {
                     return Boom.notFound("No Group with this id");
                 }
@@ -52,9 +54,64 @@ export const groupApi = {
         tags: ["api"],
         description: "Find a group",
         notes: "Returns a group",
-        validate: { params: { id: IdSpec }, failAction: validationError },
-        response: { schema: GroupSpecPlus, failAction: validationError },
+        // validate: { params: { id: IdSpec }, failAction: validationError },
+        // response: { schema: GroupSpecPlus, failAction: validationError },
     },
+
+    findByUserId: {
+        auth: {
+            strategy: "jwt",
+        },
+
+        async handler(request) {
+            try {
+                const userId = request.auth.credentials._id;
+                // use getGroupPlusPlacemarkInfoById if you want the placemarks not only by id array, but by object array
+                const group = await db.groupStore.getUserGroups(userId);
+                // console.log(group);
+                if (!group) {
+                    return Boom.notFound("No User with this id");
+                }
+                return group;
+            } catch (err) {
+                return Boom.serverUnavailable("No User with this id");
+            }
+        },
+        tags: ["api"],
+        description: "Find all Groups Of UserId",
+        notes: "Returns array Of groups",
+        validate: { failAction: validationError },
+        response: { schema: GroupArraySpec, failAction: validationError },
+    },
+
+    /*
+    findFullGroupById: {
+        auth: {
+            strategy: "jwt",
+        },
+
+        async handler(request) {
+            try {
+                const userId = request.auth.credentials._id;
+                const groupId = request.params.id;
+                // use getGroupPlusPlacemarkInfoById if you want the placemarks not only by id array, but by object array
+                const group = await db.groupStore.getGroupPlusPlacemarkInfoById(groupId);
+                console.log(group);
+                if (!group) {
+                    return Boom.notFound("No Group with this id");
+                }
+                return group;
+            } catch (err) {
+                return Boom.serverUnavailable("No Group with this id");
+            }
+        },
+        tags: ["api"],
+        description: "Find all Groups Of UserId",
+        notes: "Returns array Of groups",
+        validate: { params: { id: IdSpec }, failAction: validationError },
+        response: { schema: GroupArraySpec, failAction: validationError },
+    },
+    */
 
     create: {
         auth: {
@@ -66,7 +123,6 @@ export const groupApi = {
                 const group = request.payload;
                 const userId = request.auth.credentials._id;
                 const newGroup = await db.groupStore.addGroup(userId ,group);
-                console.log(newGroup);
                 if (newGroup) {
                     return h.response(newGroup).code(201);
                 }
@@ -121,4 +177,41 @@ export const groupApi = {
         tags: ["api"],
         description: "Delete all GroupApi",
     },
-};
+
+    addPlacemarkToGroup: {
+        auth: {
+            strategy: "jwt",
+        },
+        handler: async function (request, h) {
+            try {
+                const placemarkId = request.params.placemarkId;
+                const groupId = request.params.groupId;
+                await db.groupStore.addPlacemarkToGroup(placemarkId, groupId);
+                return h.response().code(200);
+            } catch (err) {
+                return Boom.serverUnavailable("Database Error");
+            }
+        },
+        tags: ["api"],
+        description: "Add Placemark To Group",
+    },
+
+    deletePlacemarkFromGroup: {
+        auth: {
+            strategy: "jwt",
+        },
+        handler: async function (request, h) {
+            try {
+                const placemarkId = request.params.placemarkId;
+                const groupId = request.params.groupId;
+                await db.groupStore.deletePlacemarkWithIdFromGroupWithId(groupId, placemarkId);
+                return h.response().code(204);
+            } catch (err) {
+                return Boom.serverUnavailable("Database Error");
+            }
+        },
+        tags: ["api"],
+    },
+
+
+    };

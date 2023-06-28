@@ -1,6 +1,7 @@
 import * as cloudinary from "cloudinary";
 import { writeFileSync } from "fs";
 import dotenv from "dotenv";
+import {db} from "./db.js";
 
 dotenv.config();
 
@@ -18,12 +19,26 @@ export const imageStore = {
         return result.resources;
     },
 
+    getPlacemarkImages: async function(placemarkId) {
+        // dont know api call for specific pictures
+        // but dont need to because we already have the urls in the database
+        const placemark = await db.placemarkStore.getPlacemarkById(placemarkId);
+        const result = placemark.image.map((url) => ({secure_url: url}));
+        return result;
+    },
+
     uploadImage: async function(imagefile) {
         writeFileSync("./public/temp.img", imagefile);
         const response = await cloudinary.v2.uploader.upload("./public/temp.img");
         return response.url;
     },
 
+    // not working yet
+    deleteImageById: async function(id) {
+        await cloudinary.v2.uploader.destroy(id, {});
+    },
+
+    // doesn't work but don't need to fix because it was just for testing in hapi
     deleteImage: async function(img) {
         await cloudinary.v2.uploader.destroy(img, {});
     }

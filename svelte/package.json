@@ -29,6 +29,12 @@
 	},
 	"type": "module",
 	"dependencies": {
+<<<<<<< HEAD
 		"axios": "^1.4.0"
+=======
+		"axios": "^1.4.0",
+		"leaflet": "^1.9.4",
+		"svelte-frappe-charts": "^1.10.0"
+>>>>>>> dev
 	}
 }

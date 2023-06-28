@@ -66,16 +66,15 @@ export const dashboardController = {
                 name: request.payload.name,
                 category: request.payload.category,
                 description: request.payload.description,
-                image: "",
+                image: [],
                 location: {latitude: request.payload.latitude, longitude: request.payload.longitude},
             };
-            console.log(placemark);
             await db.placemarkStore.addPlacemark(loggedInUser._id, placemark); // Function from mongo store name conflict
             return h.redirect("/dashboard");
         },
     },
 
-    //joi validation
+    // joi validation
     addGroup: {
         validate: {
             payload: GroupCredentialsSpec,

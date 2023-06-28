@@ -1,5 +1,6 @@
 import { Group } from "./group.js";
 import { placemarkMongoStore } from "./placemark-mongo-store.js";
+import {db} from "../db.js";
 
 export const groupMongoStore = {
     async getAllGroups() {
@@ -115,6 +116,27 @@ export const groupMongoStore = {
 
     async deleteAllGroups() {
         await Group.deleteMany({});
+    },
+
+    async addPlacemarkToGroup(placemarkId, groupId) {
+        try {
+            const placemark = await db.placemarkStore.getPlacemarkById(placemarkId);
+            const group = await db.groupStore.getGroupById(groupId);
+
+            const isInArray = group.arrayOfPlacemarkIds.some(function (placemarkId) {
+                return placemarkId.equals(placemark._id);
+            });
+
+            if(!isInArray){
+                group.arrayOfPlacemarkIds.push(placemark._id);  // console.log(group.arrayOfPlacemarkIds);
+            };
+
+            await group.save();
+            return null;
+        } catch(error) {
+            return error;
+        }
+
     },
 
 };
