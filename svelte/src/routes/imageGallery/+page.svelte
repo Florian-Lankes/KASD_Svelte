@@ -6,10 +6,10 @@
 
     export let data: PassedDataForImage;
 
+    // <DisplayImages passedData={data}/>
 </script>
 
 <Header>
     <MainNavigator />
 </Header>
-
 <DisplayImages passedData={data}/>
