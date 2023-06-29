@@ -25,6 +25,7 @@ export const placemarkApi = {
         notes: "Returns all placemarks",
     },
 
+    // jwt auth missing
     findOne: {
         auth: false,
         /*
@@ -147,9 +148,6 @@ export const placemarkApi = {
             maxBytes: 209715200,
             parse: true,
         },
-        tags: ["api"],
-        description: "Upload image of placemark",
-        notes: "Returns a boolean representing the outcome",
     },
 
     updatePlacemark: {
@@ -170,9 +168,6 @@ export const placemarkApi = {
                 return Boom.serverUnavailable("Database Error");
             }
         },
-        tags: ["api"],
-        description: "Update a placemark",
-        notes: "Returns a boolean representing the outcome",
     },
 
     deleteImage: {
@@ -194,9 +189,6 @@ export const placemarkApi = {
                 return Boom.serverUnavailable("Database Error");
             }
         },
-        tags: ["api"],
-        description: "Delete the image of a placemark",
-        notes: "Returns the id of the deleted image",
     },
 
     allImages: {
@@ -209,9 +201,6 @@ export const placemarkApi = {
                 return Boom.serverUnavailable("Database Error");
             }
         },
-        tags: ["api"],
-        description: "Get all images",
-        notes: "Returns all images of all placemarks",
     },
 
     placemarkImages: {
@@ -225,8 +214,5 @@ export const placemarkApi = {
                 return Boom.serverUnavailable("Database Error");
             }
         },
-        tags: ["api"],
-        description: "Update all images of a placemark",
-        notes: "Returns all images of a placemark",
     },
 };

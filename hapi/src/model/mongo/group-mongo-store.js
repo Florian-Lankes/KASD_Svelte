@@ -11,6 +11,35 @@ export const groupMongoStore = {
     async getGroupById(id) {
         if (id) {
             const group = await Group.findOne({ _id: id });
+            /*
+            console.log(group);
+            // is fine but with query call would be better
+            if (group) {
+                group.placemarks = await placemarkMongoStore.getPlacemarksOfIdArray(group.arrayOfPlacemarkIds);
+            }
+            console.log("group.placemarks");
+            console.log(group.placemarks);
+            // till here query call should replace
+
+            const group2 = await Group.aggregate([
+                {$match: {_id: group._id}},
+                {$lookup:
+                    {
+                        from: "placemarks",
+                        localField: "arrayOfPlacemarkIds",
+                        foreignField: "_id",
+                        as: "placemarks_info"
+                    }
+                }
+            ])
+
+            console.log("group");
+            console.log(group);
+            console.log("group2")
+            console.log(group2[0]);
+            console.log("group2.placemarks");
+            console.log(group2[0].placemarks_info);
+            */
             return group;
         }
         return null;
@@ -19,6 +48,7 @@ export const groupMongoStore = {
     async getGroupPlusPlacemarkInfoById(id) {
         if (id) {
             const group = await Group.findOne({ _id: id });
+            // should implement a safeguard when wrong id passed in
             const returneGroup = await Group.aggregate([
                 {$match: {_id: group._id}},
                 {$lookup:
@@ -45,8 +75,13 @@ export const groupMongoStore = {
 
     async deletePlacemarkWithId(id) { // From all Groups
         // Find groups with id in array
+        // console.log(id);
         const groups = await Group.find( { arrayOfPlacemarkIds: id} );
+
+        // console.log(groups)
         // Delete id out of array
+
+        // console.log(id);
         await Group.updateMany (
             { },
             { $pull: {arrayOfPlacemarkIds: id, }, })
@@ -93,7 +128,7 @@ export const groupMongoStore = {
             });
 
             if(!isInArray){
-                group.arrayOfPlacemarkIds.push(placemark._id);
+                group.arrayOfPlacemarkIds.push(placemark._id);  // console.log(group.arrayOfPlacemarkIds);
             };
 
             await group.save();

@@ -36,4 +36,9 @@ export const webRoutes = [
 
     { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
 
+    // about
+    // analytics
+    // edit placemarks -> POST update placemarks
+    // delete image
+    // admin stuff
 ];

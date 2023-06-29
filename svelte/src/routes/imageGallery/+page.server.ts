@@ -1,4 +1,3 @@
-// @ts-ignore
 import { KASDMapsService } from "../../services/KASD-Maps-service.ts";
 /** @type {import('./$types').PageServerLoad} */
 export const load = async () => {
