@@ -22,13 +22,13 @@
         map.showLayerControl(layerControl);
         const placemarks = await KASDMapsService.getAllPlacemarks();
         placemarks.forEach((placemark) => {
-            map.addMarker({ latitude: placemark.location.latitude, longitude: placemark.location.longitude }, placemark.name, "Placemarks");
+            map.addMarker({ latitude: placemark.location.latitude, longitude: placemark.location.longitude }, placemark.name, "Placemarks", placemark._id);
         });
     });
 
     latestPlacemark.subscribe((placemark) => {
         if (placemark && map) {
-            map.addMarker({ latitude: placemark.location.latitude, longitude: placemark.location.longitude }, placemark.name, "Placemarks");
+            map.addMarker({ latitude: placemark.location.latitude, longitude: placemark.location.longitude }, placemark.name, "Placemarks", placemark._id);
         }
     });
 

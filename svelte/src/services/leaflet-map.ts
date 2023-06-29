@@ -82,12 +82,12 @@ export class LeafletMap {
         this.imap.setView(new L.LatLng(location.latitude, location.longitude), 8);
     }
 
-    addMarker(location: Location, popupText = "", layerTitle = "default") {
+    addMarker(location: Location, popupText = "", layerTitle = "default", placemarkId: string) {
         let group = {};
         const marker = L.marker([location.latitude, location.longitude]);
         if (popupText) {
             const popup = L.popup({ autoClose: false, closeOnClick: false });
-            popup.setContent(popupText);
+            popup.setContent(popupText + "<br><a class='button' href='/dashboard/placemark/"+placemarkId +"'>Placemark Details</a>");
             marker.bindPopup(popup);
         }
         if (!this.overlays[layerTitle]) {
