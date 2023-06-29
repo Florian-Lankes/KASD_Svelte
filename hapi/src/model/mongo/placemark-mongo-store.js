@@ -62,13 +62,6 @@ export const placemarkMongoStore = {
         return placemark;
     },
 
-    /*
-    async getPlacemarksByGroupId(id) {
-        const placemarks = await Placemark.find({ groupId: id }).lean();
-        return placemarks;
-    },
-    */
-
     async deletePlacemarkById(id) {
         try {
             await Placemark.deleteOne({ _id: id });

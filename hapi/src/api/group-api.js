@@ -34,11 +34,6 @@ export const groupApi = {
 
     findOne: {
         auth: false,
-        /*
-        auth: {
-            strategy: "jwt",
-        },
-        */
         async handler(request) {
             try {
                 // use getGroupPlusPlacemarkInfoById if you want the placemarks not only by id array, but by object array
@@ -54,8 +49,6 @@ export const groupApi = {
         tags: ["api"],
         description: "Find a group",
         notes: "Returns a group",
-        // validate: { params: { id: IdSpec }, failAction: validationError },
-        // response: { schema: GroupSpecPlus, failAction: validationError },
     },
 
     findByUserId: {
@@ -83,35 +76,6 @@ export const groupApi = {
         validate: { failAction: validationError },
         response: { schema: GroupArraySpec, failAction: validationError },
     },
-
-    /*
-    findFullGroupById: {
-        auth: {
-            strategy: "jwt",
-        },
-
-        async handler(request) {
-            try {
-                const userId = request.auth.credentials._id;
-                const groupId = request.params.id;
-                // use getGroupPlusPlacemarkInfoById if you want the placemarks not only by id array, but by object array
-                const group = await db.groupStore.getGroupPlusPlacemarkInfoById(groupId);
-                console.log(group);
-                if (!group) {
-                    return Boom.notFound("No Group with this id");
-                }
-                return group;
-            } catch (err) {
-                return Boom.serverUnavailable("No Group with this id");
-            }
-        },
-        tags: ["api"],
-        description: "Find all Groups Of UserId",
-        notes: "Returns array Of groups",
-        validate: { params: { id: IdSpec }, failAction: validationError },
-        response: { schema: GroupArraySpec, failAction: validationError },
-    },
-    */
 
     create: {
         auth: {

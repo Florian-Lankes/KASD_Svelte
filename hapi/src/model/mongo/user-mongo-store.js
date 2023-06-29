@@ -43,7 +43,6 @@ export const userMongoStore = {
         await User.deleteMany({});
     },
 
-    //for admin there is a ban function that the user cant create a new account with same credentials
 
     async isAdmin(id) {
         const user = await this.getUserById(id);

@@ -2,28 +2,10 @@
 import { KASDMapsService } from "../../../../services/KASD-Maps-service.ts";
 /** @type {import('./$types').PageServerLoad} */
 export const load = async ({ params }) => {
-    const placemark2 = await KASDMapsService.getPlacemark(params.id);
+    const returnedPlacemark = await KASDMapsService.getPlacemark(params.id);
     const images = await KASDMapsService.getPlacemarkImages(placemark2._id); //test
     return {
-        placemark: placemark2,
+        placemark: returnedPlacemark,
         images: images
     }
 };
-/*
-export const actions = {
-    editPlacemark: async ({ cookies, request }) => {
-        // edit the placemark
-        const data = await request.formData();
-        const updatedPlacemark = {
-            name: data.get('name'),
-            category: data.get('category'),
-            description: data.get('description'),
-            location: {latitude: Number(data.get('latitude')), longitude: Number(data.get('longitude'))},
-        }
-        const placemarkId = data.get('placemarkId');
-        const response = await KASDMapsService.editPlacemark(placemarkId, updatedPlacemark);
-
-        return {success: true};
-    },
-};
-*/
